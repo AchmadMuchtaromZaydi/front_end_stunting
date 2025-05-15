@@ -46,8 +46,16 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    const token = localStorage.getItem('story_token');
+    const token = localStorage.getItem('token');
     const publicRoutes = ['/login', '/register'];
+
+    const header = document.querySelector('header');
+    if (url === '/dashboard') {
+      if (header) header.style.display = 'none';
+    } else {
+      if (header) header.style.display = 'block';
+    }
+
 
     // Jika token tidak ada dan halaman bukan login/register, arahkan ke login
     if (!token && !publicRoutes.includes(url)) {
@@ -75,7 +83,7 @@ class App {
   }
 
   _updateUIBasedOnLogin() {
-    const token = localStorage.getItem('story_token');
+    const token = localStorage.getItem('token');
     const logoutButton = document.getElementById('logoutButton');
     const loginLink = document.getElementById('loginLink');
     const registerLink = document.getElementById('registerLink');
@@ -104,7 +112,7 @@ class App {
   // Fungsi untuk menangani logout
   handleLogout() {
     // Menghapus token dari localStorage
-    localStorage.removeItem('story_token');
+    localStorage.removeItem('token');
     // Redirect ke halaman login
     window.location.hash = '/login';
   }

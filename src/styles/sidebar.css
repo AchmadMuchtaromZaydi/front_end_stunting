@@ -1,0 +1,54 @@
+/* ==== SIDEBAR STYLE ==== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background: #7fcfc6;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.sidebar .logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar .nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .nav-links li {
+  margin: 10px 0;
+}
+
+.sidebar .nav-links a {
+  background: #fff;
+  color: #2c3e50;
+  display: block;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.sidebar .nav-links a:hover {
+  background: #f0f0f0;
+}
+
+.sidebar .credit {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #fefefe;
+  margin-top: 30px;
+}
