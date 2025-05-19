@@ -1,0 +1,145 @@
+.dashboard-layout {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Wrapper untuk search dan tombol tambah */
+.search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+}
+
+.btn-tambah {
+  display: inline-block;
+  background: #4DC1B1;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-tambah:hover {
+  background-color: #3ba89a;
+}
+
+/* Layout list anak */
+.anak-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Card anak */
+.anak-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.anak-card:hover {
+  transform: translateY(-4px);
+}
+
+.anak-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.foto-anak,
+.placeholder-foto {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  object-fit: cover;
+}
+
+.placeholder-foto {
+  display: inline-block;
+}
+
+.info-nama-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.info-nama-status h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+/* Status label color coding */
+.status.normal {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.stunting {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status.berpotensi-stunting {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.anak-details {
+  font-size: 0.9rem;
+}
+
+.anak-details p {
+  margin: 0.3rem 0;
+}
+
+.anak-details span {
+  font-weight: 500;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  margin-top: 2rem;
+}

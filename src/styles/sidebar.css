@@ -52,3 +52,14 @@
   color: #fefefe;
   margin-top: 30px;
 }
+.sidebar-logo {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.sidebar-logo-img {
+  width: 60px;
+  height: auto;
+  margin-bottom: 10px;
+}
+

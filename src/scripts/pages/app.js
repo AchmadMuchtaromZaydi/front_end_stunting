@@ -36,28 +36,25 @@ class App {
     });
   }
 
-  // Setup routing dan event listener untuk perubahan hash
   _setupRouting() {
     window.addEventListener('hashchange', () => {
       this.renderPage();
     });
-    this.renderPage(); // Memanggil render pertama kali ketika halaman dimuat
+    this.renderPage(); // Initial render
   }
 
   async renderPage() {
     const url = getActiveRoute();
     const token = localStorage.getItem('token');
     const publicRoutes = ['/login', '/register'];
+    const hiddenHeaderRoutes = ['/dashboard', '/anak', '/tambah-anak'];
 
     const header = document.querySelector('header');
-    if (url === '/dashboard') {
-      if (header) header.style.display = 'none';
-    } else {
-      if (header) header.style.display = 'block';
+    if (header) {
+      header.style.display = hiddenHeaderRoutes.includes(url) ? 'none' : 'block';
     }
 
-
-    // Jika token tidak ada dan halaman bukan login/register, arahkan ke login
+    // Jika belum login dan bukan halaman publik
     if (!token && !publicRoutes.includes(url)) {
       console.log('Redirecting to login...');
       window.location.hash = '/login';
@@ -74,12 +71,11 @@ class App {
       this.#content.innerHTML = await page.render();
       await page.afterRender();
     } catch (error) {
-      // Menangani error jika terjadi saat render atau afterRender
       this.#content.innerHTML = '<h2>Terjadi kesalahan saat memuat halaman</h2>';
       console.error(error);
     }
 
-    this._updateUIBasedOnLogin();  // Perbarui UI setelah halaman selesai dirender
+    this._updateUIBasedOnLogin();
   }
 
   _updateUIBasedOnLogin() {
@@ -89,7 +85,6 @@ class App {
     const registerLink = document.getElementById('registerLink');
     const homeButton = document.getElementById('homeButton');
 
-    // Menyembunyikan atau menampilkan tombol logout dan link login/register
     if (logoutButton) {
       logoutButton.style.display = token ? 'inline-block' : 'none';
       logoutButton.addEventListener('click', () => this.handleLogout());
@@ -103,17 +98,13 @@ class App {
       registerLink.style.display = token ? 'none' : 'inline-block';
     }
 
-    // Menampilkan tombol home setelah login
     if (homeButton) {
       homeButton.style.display = token ? 'inline-block' : 'none';
     }
   }
 
-  // Fungsi untuk menangani logout
   handleLogout() {
-    // Menghapus token dari localStorage
     localStorage.removeItem('token');
-    // Redirect ke halaman login
     window.location.hash = '/login';
   }
 }

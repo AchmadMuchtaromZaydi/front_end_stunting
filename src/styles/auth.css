@@ -38,14 +38,14 @@
 }
 
 .form-card input:focus {
-  border-color: #007BFF;
+  border-color: #7fcfc6;
   outline: none;
 }
 
 .form-card button {
   width: 100%;
   padding: 12px;
-  background-color: #007BFF;
+  background-color: #7fcfc6;
   color: white;
   font-size: 16px;
   border: none;

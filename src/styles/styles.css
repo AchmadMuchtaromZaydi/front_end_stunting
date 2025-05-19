@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  background-color: lightskyblue;
+  background-color: #7fcfc6;
 }
 
 .main-header {
@@ -230,13 +230,4 @@ header {
   .drawer-button {
     display: none;
   }
-
-
-
-
-
-
-
-
-  
 }

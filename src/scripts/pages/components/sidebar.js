@@ -5,7 +5,14 @@ const Sidebar = {
   render() {
     return `
       <nav class="sidebar">
-        <div class="logo">SMART<br><small>Stunting Monitoring</small></div>
+      <div class="top-section">
+        <div class="sidebar-logo">
+          <img src="kesehatan.png" alt="Logo" class="sidebar-logo-img" />
+          <div class="logo-text">
+            <strong>SMART</strong><br><small>Stunting Monitoring</small>
+          </div>
+        </div>
+      </div>
         <ul class="nav-links">
           <li><a href="#/dashboard">Dashboard</a></li>
           <li><a href="#/anak">Daftar Anak</a></li>

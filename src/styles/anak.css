@@ -1,0 +1,110 @@
+/* ... aturan CSS yang sudah ada ... */
+
+.form-container {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px; /* Sesuaikan border-radius agar lebih membulat */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan sedikit shadow */
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px; /* Tambah margin bawah pada judul */
+  color: #333;
+}
+
+.form-anak {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* Tambah jarak antar elemen form */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px; /* Tambah margin bawah pada label */
+  font-weight: bold;
+  color: #555;
+}
+
+.form-anak input[type="text"],
+.form-anak input[type="number"],
+.form-anak select {
+  padding: 12px; /* Tambah padding pada input */
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Sesuaikan border-radius input */
+  font-size: 1rem;
+}
+
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  background-color: #e0f7fa; /* Warna latar belakang input file */
+  color: #00838f; /* Warna teks input file */
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #b2ebf2;
+  margin-bottom: 15px; /* Tambah margin bawah input file */
+}
+
+.file-input {
+  position: absolute;
+  font-size: 100px;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.file-label {
+  cursor: pointer;
+}
+
+.file-name {
+  margin-left: 12px;
+  font-style: italic;
+  color: #777;
+}
+
+.preview-container {
+  margin-top: 10px;
+  border: 1px dashed #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-foto {
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Membuat tombol berada di tengah */
+  margin-top: 25px; /* Tambah margin atas tombol */
+}
+
+.btn-tambah-data {
+  background-color: #00897b; /* Warna tombol "Tambah Data" */
+  color: white;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-tambah-data:hover {
+  background-color: #00695c;
+}
