@@ -48,41 +48,56 @@ const AnakPage = {
       container.textContent = error.message;
     }
 
-    function renderList(data) {
-      if (data.length === 0) {
-        container.innerHTML = '<p class="no-data">Tidak ada hasil ditemukan.</p>';
-        return;
-      }
+function renderList(data) {
+  if (data.length === 0) {
+    container.innerHTML = '<p class="no-data">Tidak ada hasil ditemukan.</p>';
+    return;
+  }
 
-      container.innerHTML = data
-        .map(
-          (anak) => `
-            <div class="anak-card">
-              <div class="anak-card-header">
-                ${
-                  anak.foto_url
-                    ? `<img src="${anak.foto_url}" alt="Foto ${anak.nama}" class="foto-anak" />`
-                    : '<div class="placeholder-foto"></div>'
-                }
-                <div class="info-nama-status">
-                  <h3>${anak.nama}</h3>
-                  <p class="status ${anak.label.toLowerCase().replace(/ /g, '-')}">
-                    ${anak.label}
-                  </p>
-                </div>
-              </div>
-              <div class="anak-details">
-                <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
-                <p>Umur: <span>${anak.umur_bulan} bulan</span></p>
-                <p>Tinggi Badan: <span>${anak.tinggi_badan} cm</span></p>
-                <p>Berat Badan: <span>${anak.berat_badan} kg</span></p>
-                <p>Tanggal Data: <span>${new Date(anak.created_at).toLocaleDateString()}</span></p>
-              </div>
+  container.innerHTML = data
+    .map(
+      (anak) => `
+        <div class="anak-card" data-id="${anak.id}">
+          <div class="anak-card-header">
+            ${
+              anak.foto_url
+                ? `<img src="${anak.foto_url}" alt="Foto ${anak.nama}" class="foto-anak" />`
+                : '<div class="placeholder-foto"></div>'
+            }
+            <div class="info-nama-status">
+              <h3>${anak.nama}</h3>
+              <p class="status ${anak.label.toLowerCase().replace(/ /g, '-')}">
+                ${anak.label}
+              </p>
             </div>
-          `
-        )
-        .join('');
-    }
+          </div>
+          <div class="anak-details">
+            <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
+            <p>Umur: <span>${anak.umur_bulan} bulan</span></p>
+            <p>Tinggi Badan: <span>${anak.tinggi_badan} cm</span></p>
+            <p>Berat Badan: <span>${anak.berat_badan} kg</span></p>
+            <p>Tanggal Data: <span>${new Date(anak.created_at).toLocaleDateString()}</span></p>
+          </div>
+        </div>
+      `
+    )
+    .join('');
+
+  // Tambahkan event listener setelah HTML dirender
+  const cards = document.querySelectorAll('.anak-card');
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const anakId = card.getAttribute('data-id');
+      localStorage.setItem('anak_id', anakId);
+      window.location.hash = '/riwayat';
+    });
+  });
+}
+
+
+
+
+
   },
 };
 

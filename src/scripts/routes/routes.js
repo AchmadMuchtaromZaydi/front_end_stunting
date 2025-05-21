@@ -5,7 +5,7 @@ import DashboardPage from '../pages/dashboard/dashboard-page.js';
 import AnakPage from '../pages/anak/anak-page.js';
 import TambahAnakPage from '../pages/add-anak/tambah-anak-page.js';
 import ReportPage from '../pages/report/report-page.js'; // ✅ Tambahkan ini
-
+import RiwayatPage from '../pages/riwayat-pemeriksaan-anak/RiwayatPage.js';
 
 const routes = {
   '/login': LoginPage,
@@ -13,6 +13,9 @@ const routes = {
   '/dashboard': DashboardPage, // ⬅️ Tambahan ini
   '/report': ReportPage, // ✅ Tambahkan ini
   '/': HomePage, 
+  '/anak': AnakPage, // ✅ Tambahkan ini
+  '/tambah-anak': TambahAnakPage, // ✅ Tambahkan ini
+  '/riwayat': RiwayatPage, // ✅ Tambahkan ini
 };
 
 export default routes;
