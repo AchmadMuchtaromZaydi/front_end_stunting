@@ -70,43 +70,62 @@ const TambahAnakPage = {
     const previewImg = document.getElementById('previewFoto');
     const fileNameSpan = form.querySelector('.file-name');
 
-    let base64Foto = null;
-
     fotoInput.addEventListener('change', () => {
       const file = fotoInput.files[0];
       if (file) {
         fileNameSpan.textContent = file.name;
         const reader = new FileReader();
         reader.onload = () => {
-          base64Foto = reader.result;
-          previewImg.src = base64Foto;
+          previewImg.src = reader.result;
         };
         reader.readAsDataURL(file);
       } else {
         fileNameSpan.textContent = 'No file chosen';
-        previewImg.src = ''; // Clear preview if no file selected
+        previewImg.src = '';
       }
     });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(form);
+      const file = fotoInput.files[0];
+      let fotoUrl = null;
 
+      // Upload ke Cloudinary jika ada foto
+      if (file) {
+        const cloudForm = new FormData();
+        cloudForm.append('file', file);
+        cloudForm.append('upload_preset', 'stunting_anak');
+
+        try {
+          const uploadRes = await fetch('https://api.cloudinary.com/v1_1/dydfth7zs/image/upload', {
+            method: 'POST',
+            body: cloudForm
+          });
+          const uploadData = await uploadRes.json();
+          fotoUrl = uploadData.secure_url;
+        } catch (err) {
+          alert('❌ Gagal mengupload foto ke Cloudinary.');
+          return;
+        }
+      }
+
+      // Buat payload
       const anakPayload = [{
         nama: formData.get('nama'),
         jenis_kelamin: formData.get('jenis_kelamin'),
         umur_bulan: parseInt(formData.get('umur')),
         tinggi_badan: parseFloat(formData.get('tinggi')),
         berat_badan: parseFloat(formData.get('berat')),
-        foto_url: base64Foto || null, // kirim base64 string jika ada
+        foto_url: fotoUrl
       }];
 
       try {
         await tambahAnak(token, anakPayload);
-        alert('Data anak berhasil ditambahkan!');
+        alert('✅ Data anak berhasil ditambahkan!');
         window.location.hash = '/anak';
       } catch (err) {
-        alert(err.message);
+        alert(`❌ Gagal menambahkan data anak: ${err.message}`);
       }
     });
   }
