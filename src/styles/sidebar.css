@@ -5,13 +5,14 @@
   left: 0;
   height: 100vh;
   width: 250px;
-  background: #7fcfc6;
-  color: #fff;
+  background-color: #f4fbfd !important; /* Warna netral cerah agar logo menonjol */
+  color: #0b4a58;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar .logo {
@@ -32,34 +33,79 @@
 }
 
 .sidebar .nav-links a {
-  background: #fff;
-  color: #2c3e50;
+  background: #ffffff;
+  color: #0b4a58;
   display: block;
   padding: 12px;
   border-radius: 10px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .sidebar .nav-links a:hover {
-  background: #f0f0f0;
+  background: #e0f7f9;
+  color: #0b8fac;
+}
+
+.sidebar .nav-links a.active {
+  background: #0b8fac;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #0b8fac inset;
+}
+
+.sidebar .nav-links a.active:hover {
+  background: #0b8fac;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #0b8fac inset;
+}
+
+.sidebar .nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background-color: #0b8fac;
+  transition: width 0.3s ease;
+}
+
+.sidebar .nav-links a:hover::before {
+  width: 100%;
 }
 
 .sidebar .credit {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-align: center;
-  color: #fefefe;
+  color: #ffffff;
   margin-top: 30px;
+  font-weight: bold;
+  background-color: #0b8fac;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
+
 .sidebar-logo {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .sidebar-logo-img {
   width: 60px;
   height: auto;
-  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
+.logo-text {
+  text-align: left;
+  line-height: 1.2;
+  color: #0b4a58;
+}
