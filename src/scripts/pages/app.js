@@ -47,7 +47,7 @@ class App {
     const url = getActiveRoute();
     const token = localStorage.getItem("token");
     const publicRoutes = ["/login", "/register"];
-    const hiddenHeaderRoutes = ["/dashboard", "/anak", "/tambah-anak"];
+    const hiddenHeaderRoutes = ["/dashboard", "/anak", "/tambah-anak", "/detail-anak"];
 
     const header = document.querySelector("header");
     if (header) {

@@ -24,3 +24,28 @@ export async function tambahAnak(token, anakData) {
   if (!res.ok) throw new Error(result.message || 'Gagal menambahkan data anak');
   return result.data;
 }
+
+// Tambahkan ini untuk detail anak
+export async function getAnakById(token, id) {
+  const res = await fetch(`${BASE_URL}/api/status-anak/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || 'Gagal mengambil detail anak');
+  return result.data;
+}
+
+// Tambahkan ini untuk hapus anak
+export async function deleteAnakById(token, id) {
+  const res = await fetch(`${BASE_URL}/api/status-anak/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || 'Gagal menghapus data anak');
+  return result.message;
+}

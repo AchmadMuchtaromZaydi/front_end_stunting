@@ -72,6 +72,7 @@ function renderList(data) {
             </div>
           </div>
           <div class="anak-details">
+            <p><strong>ID Anak:</strong> <span>${anak.id}</span></p>
             <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
             <p>Umur: <span>${anak.umur_bulan} bulan</span></p>
             <p>Tinggi Badan: <span>${anak.tinggi_badan} cm</span></p>
@@ -89,7 +90,7 @@ function renderList(data) {
     card.addEventListener('click', () => {
       const anakId = card.getAttribute('data-id');
       localStorage.setItem('anak_id', anakId);
-      window.location.hash = '/riwayat';
+      window.location.hash = '/detail-anak';
     });
   });
 }

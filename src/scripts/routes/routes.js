@@ -4,6 +4,7 @@ import HomePage from "../pages/home/home-page";
 import DashboardPage from "../pages/dashboard/dashboard-page.js";
 import AnakPage from "../pages/anak/anak-page.js";
 import TambahAnakPage from "../pages/add-anak/tambah-anak-page.js";
+import DetailAnakPage from "../pages/detail/detail-anak-page.js";
 import ReportPage from "../pages/report/report-page.js"; // ✅ Tambahkan ini
 import RiwayatPage from "../pages/riwayat-pemeriksaan-anak/RiwayatPage.js";
 import ProfilePosyanduPage from "../pages/profile-posyandu/profile-posyandu-page.js";
@@ -16,6 +17,7 @@ const routes = {
   "/": HomePage,
   "/anak": AnakPage, // ✅ Tambahkan ini
   "/tambah-anak": TambahAnakPage, // ✅ Tambahkan ini
+  "/detail-anak": DetailAnakPage,
   "/riwayat": RiwayatPage, // ✅ Tambahkan ini
   "/profile-posyandu": ProfilePosyanduPage,
 };
