@@ -21,9 +21,6 @@ const Sidebar = {
           <li><a href="#/anak" class="${
             activePage === "#/anak" ? "active" : ""
           }">Daftar Anak</a></li>
-          <li><a href="#/profile" class="${
-            activePage === "#/profile" ? "active" : ""
-          }">Profile</a></li>
           <li><a href="#/report" class="${
             activePage === "#/report" ? "active" : ""
           }">Report</a></li>
@@ -32,7 +29,7 @@ const Sidebar = {
               activePage === "#/profile-posyandu" ? "active" : ""
             }">
               <i class="fa-solid fa-circle-info"></i>
-              Tentang Posyandu
+              Profil Posyandu
             </a>
           </li>
           <li><a href="#" id="logoutBtn">Logout</a></li>

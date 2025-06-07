@@ -1,70 +1,172 @@
 .profile-posyandu {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.profile-posyandu .content-wrapper {
-  max-width: 800px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-left: 50px; /* Sesuaikan jika ada sidebar */
-}
-
-.profile-image {
-  width: 100%;
-  max-width: 300px; /* Sesuaikan dengan lebar konten putih halaman */
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-  display: block;
-  object-fit: contain;
-  padding: 0 1rem; /* Memberi ruang agar tidak mepet di layar kecil */
-  box-sizing: border-box;
- margin-left: 250px;
-}
-
-.company-info {
-  width: 100%;
+  padding: 40px 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 40px auto;
   text-align: center;
-  padding: 0 1rem;
-  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.company-info .title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.company-info .description {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-around;
-  padding: 2rem 1rem;
-  background-color: #d7d7d7;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  border-radius: 6px;
-}
-
-.footer-section {
-  display: flex;
-  flex-direction: column;
-  min-width: 150px;
-}
-
-.footer-section h4 {
-  margin-bottom: 1rem;
+.profile-posyandu h2 {
+  font-size: 2.2rem;
   font-weight: bold;
+  margin-bottom: 1.8rem;
+  color: #222;
 }
 
-.footer-section a {
+.profile-posyandu img.posyandu-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: 200px 10px 1fr;
+  row-gap: 15px;
+  column-gap: 10px;
+  font-size: 1.05rem;
+  color: #444;
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+.profile-key {
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+.profile-colon {
+  text-align: center;
+}
+
+.profile-value {
+  word-wrap: break-word;
+}
+
+/* Input Style */
+.profile-posyandu input[type="text"],
+.profile-posyandu input[type="url"],
+.profile-posyandu textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #111827;
+  background-color: #fafafa;
+}
+
+.profile-posyandu input[type="text"]:focus,
+.profile-posyandu input[type="url"]:focus,
+.profile-posyandu textarea:focus {
+  border-color: #0b8fac;
+  box-shadow: 0 0 5px rgba(11, 143, 172, 0.3);
+  outline: none;
+}
+
+.profile-posyandu textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+
+
+.btn-primary {
+  background: #0b8fac;
+  color: #fff;
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 10px;
   text-decoration: none;
-  color: #555;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.btn-primary:hover {
+  background: #0a7d99;
+  color: #fff;
+}
+
+.btn-save {
+  background: #34d399; /* green-400 */
+  color: #fff;
+}
+
+.btn-save:hover {
+  background: #10b981; /* green-500 */
+  color: #fff;
+}
+
+.btn-cancel {
+  background: #f87171; /* red-400 */
+  color: #fff;
+}
+
+.btn-cancel:hover {
+  background: #ef4444; /* red-500 */
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e5e7eb; /* gray-200 */
+  color: #374151; /* gray-700 */
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db; /* gray-300 */
+  color: #374151;
+}
+
+
+/* Form H3 */
+.profile-posyandu form h3 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  color: #0b4a58;
+  text-align: center;
+}
+
+/* Success Message */
+.profile-posyandu .success-message {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #34d399;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -4,9 +4,11 @@ import "../../../styles/profile-posyandu.css";
 
 const ProfilePosyanduPage = {
   async render() {
+    console.log("ProfilePosyanduPage: render() berjalan");
+
     return `
       <div class="app-container">
-        ${Sidebar.render("Tentang Posyandu")}
+        ${Sidebar.render("Profil Posyandu")}
         <div class="content" id="profilePosyanduContent">
           <!-- Konten akan dimuat oleh Presenter -->
         </div>
@@ -15,11 +17,12 @@ const ProfilePosyanduPage = {
   },
 
   async afterRender() {
-    // Sembunyikan header hanya untuk halaman ini
+    console.log("ProfilePosyanduPage: afterRender() berjalan");
+
     const header = document.querySelector("header");
     if (header) header.style.display = "none";
 
-    ProfilePosyanduPresenter.init({
+    await ProfilePosyanduPresenter.init({
       contentContainer: document.getElementById("profilePosyanduContent"),
     });
   },
