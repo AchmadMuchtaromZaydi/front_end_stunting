@@ -14,7 +14,7 @@ h2 {
   margin-bottom: 1rem;
 }
 
-/* Wrapper untuk search dan tombol tambah */
+/* Search dan tombol tambah */
 .search-wrapper {
   display: flex;
   justify-content: space-between;
@@ -48,7 +48,7 @@ h2 {
   background-color: #3ba89a;
 }
 
-/* Layout list anak */
+/* List anak */
 .anak-list {
   display: flex;
   flex-direction: column;
@@ -63,37 +63,49 @@ h2 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
   width: 100%;
+  cursor: pointer;
 }
 
 .anak-card:hover {
   transform: translateY(-4px);
 }
 
+/* Header card: foto + info */
 .anak-card-header {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .foto-anak,
 .placeholder-foto {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-color: #e0e0e0;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .placeholder-foto {
   display: inline-block;
 }
 
+/* Wrapper info kanan */
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Baris nama + status */
 .info-nama-status {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 .info-nama-status h3 {
@@ -101,16 +113,16 @@ h2 {
   font-size: 1.1rem;
 }
 
+/* Label status */
 .status {
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: bold;
   text-transform: capitalize;
-  width: fit-content;
+  white-space: nowrap;
 }
 
-/* Status label color coding */
 .status.normal {
   background-color: #d4edda;
   color: #155724;
@@ -126,18 +138,23 @@ h2 {
   color: #856404;
 }
 
+/* Detail anak */
 .anak-details {
   font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .anak-details p {
-  margin: 0.3rem 0;
+  margin: 0;
 }
 
 .anak-details span {
   font-weight: 500;
 }
 
+/* Jika tidak ada data */
 .no-data {
   text-align: center;
   color: #888;

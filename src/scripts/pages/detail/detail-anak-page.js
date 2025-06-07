@@ -54,7 +54,12 @@ const DetailAnakPage = {
         <button id="hapusButton" class="btn-hapus">Hapus Data Anak</button>
       `;
 
-      document.getElementById('hapusButton').addEventListener('click', async () => {
+      // Ganti tombol dengan clone agar event listener lama hilang
+      const originalButton = document.getElementById('hapusButton');
+      const newButton = originalButton.cloneNode(true);
+      originalButton.replaceWith(newButton);
+
+      newButton.addEventListener('click', async () => {
         const konfirmasi = confirm(`Apakah kamu yakin ingin menghapus data ${anak.nama}?`);
         if (!konfirmasi) return;
 
@@ -66,6 +71,7 @@ const DetailAnakPage = {
           alert(`❌ Gagal menghapus data: ${err.message}`);
         }
       });
+
     } catch (err) {
       container.innerHTML = `<p class="error">❌ ${err.message}</p>`;
     }
