@@ -1,13 +1,14 @@
-import DetailAnakPresenter from './detail-anak-presenter.js';
-import Sidebar from '../components/sidebar.js';
-import '../../../styles/detail-anak.css'; // Pastikan file ini ada
+// detail-anak-page.js
+import DetailAnakPresenter from "./detail-anak-presenter.js";
+import Sidebar from "../components/sidebar.js";
+import "../../../styles/detail-anak.css"; // Pastikan file ini ada
 
 const DetailAnakPage = {
   async render() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      window.location.hash = '/login';
-      return '';
+      window.location.hash = "/login";
+      return "";
     }
 
     return `
@@ -23,9 +24,9 @@ const DetailAnakPage = {
   async afterRender() {
     Sidebar.afterRender();
 
-    const token = localStorage.getItem('token');
-    const anakId = localStorage.getItem('anak_id');
-    const container = document.getElementById('detailContainer');
+    const token = localStorage.getItem("token");
+    const anakId = localStorage.getItem("anak_id");
+    const container = document.getElementById("detailContainer");
 
     try {
       const anak = await DetailAnakPresenter.fetchDetailAnak(token, anakId);
@@ -47,31 +48,44 @@ const DetailAnakPage = {
             <p><strong>Umur:</strong> ${anak.umur_bulan} bulan</p>
             <p><strong>Tinggi Badan:</strong> ${anak.tinggi_badan} cm</p>
             <p><strong>Berat Badan:</strong> ${anak.berat_badan} kg</p>
-            <p><strong>Status:</strong> <span class="status ${anak.label.toLowerCase().replace(/ /g, '-')}">${anak.label}</span></p>
-            <p><strong>Tanggal:</strong> ${new Date(anak.created_at).toLocaleDateString()}</p>
+            <p><strong>Status:</strong> <span class="status ${anak.label
+              .toLowerCase()
+              .replace(/ /g, "-")}">${anak.label}</span></p>
+            <p><strong>Tanggal:</strong> ${new Date(
+              anak.created_at
+            ).toLocaleDateString()}</p>
           </div>
         </div>
-        <button id="hapusButton" class="btn-hapus">Hapus Data Anak</button>
+        <div class="detail-actions">
+          <button id="backButton" class="btn-back">Kembali ke Daftar Anak</button>
+          <button id="hapusButton" class="btn-hapus">Hapus Data Anak</button>
+        </div>
       `;
 
+      // Handle back button
+      document.getElementById("backButton").addEventListener("click", () => {
+        window.location.hash = "/anak";
+      });
+
       // Ganti tombol dengan clone agar event listener lama hilang
-      const originalButton = document.getElementById('hapusButton');
+      const originalButton = document.getElementById("hapusButton");
       const newButton = originalButton.cloneNode(true);
       originalButton.replaceWith(newButton);
 
-      newButton.addEventListener('click', async () => {
-        const konfirmasi = confirm(`Apakah kamu yakin ingin menghapus data ${anak.nama}?`);
+      newButton.addEventListener("click", async () => {
+        const konfirmasi = confirm(
+          `Apakah kamu yakin ingin menghapus data ${anak.nama}?`
+        );
         if (!konfirmasi) return;
 
         try {
           await DetailAnakPresenter.hapusAnak(token, anakId);
-          alert('✅ Data berhasil dihapus');
-          window.location.hash = '/anak';
+          alert("✅ Data berhasil dihapus");
+          window.location.hash = "/anak";
         } catch (err) {
           alert(`❌ Gagal menghapus data: ${err.message}`);
         }
       });
-
     } catch (err) {
       container.innerHTML = `<p class="error">❌ ${err.message}</p>`;
     }

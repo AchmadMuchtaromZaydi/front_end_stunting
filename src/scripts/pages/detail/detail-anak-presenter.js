@@ -1,4 +1,4 @@
-import { getAnakById, deleteAnakById } from '../../data/anakApi.js';
+import { getAnakById, deleteAnakById } from "../../data/anakApi.js";
 
 const DetailAnakPresenter = {
   async fetchDetailAnak(token, id) {
@@ -7,7 +7,7 @@ const DetailAnakPresenter = {
 
   async hapusAnak(token, id) {
     return await deleteAnakById(token, id);
-  }
+  },
 };
 
 export default DetailAnakPresenter;

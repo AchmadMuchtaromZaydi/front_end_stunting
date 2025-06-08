@@ -1,6 +1,6 @@
-import Sidebar from "../components/sidebar";
+import Sidebar from "../components/sidebar"; // Sesuaikan path jika berbeda
 import ProfilePosyanduPresenter from "./profile-posyandu-presenter";
-import "../../../styles/profile-posyandu.css";
+import "../../../styles/profile-posyandu.css"; // Impor CSS Anda
 
 const ProfilePosyanduPage = {
   async render() {
@@ -10,8 +10,7 @@ const ProfilePosyanduPage = {
       <div class="app-container">
         ${Sidebar.render("Profil Posyandu")}
         <div class="content" id="profilePosyanduContent">
-          <!-- Konten akan dimuat oleh Presenter -->
-        </div>
+          </div>
       </div>
     `;
   },
@@ -19,6 +18,7 @@ const ProfilePosyanduPage = {
   async afterRender() {
     console.log("ProfilePosyanduPage: afterRender() berjalan");
 
+    // Jika Anda ingin menyembunyikan header global, pastikan elemen 'header' ada di HTML Anda
     const header = document.querySelector("header");
     if (header) header.style.display = "none";
 

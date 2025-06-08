@@ -1,3 +1,4 @@
+/* Styling for Profile Posyandu Container */
 .profile-posyandu {
   padding: 40px 30px;
   background: #ffffff;
@@ -9,6 +10,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Styling for Main Title */
 .profile-posyandu h2 {
   font-size: 2.2rem;
   font-weight: bold;
@@ -16,6 +18,7 @@
   color: #222;
 }
 
+/* Styling for Posyandu Photo */
 .profile-posyandu img.posyandu-photo {
   width: 140px;
   height: 140px;
@@ -25,6 +28,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Styling for Profile Information Grid */
 .profile-info {
   display: grid;
   grid-template-columns: 200px 10px 1fr;
@@ -33,7 +37,7 @@
   font-size: 1.05rem;
   color: #444;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 600px; /* Adjust as needed */
   text-align: left;
 }
 
@@ -48,10 +52,10 @@
 }
 
 .profile-value {
-  word-wrap: break-word;
+  word-wrap: break-word; /* Prevents long text from overflowing */
 }
 
-/* Input Style */
+/* Styling for Form Input Fields */
 .profile-posyandu input[type="text"],
 .profile-posyandu input[type="url"],
 .profile-posyandu textarea {
@@ -69,20 +73,19 @@
 .profile-posyandu input[type="text"]:focus,
 .profile-posyandu input[type="url"]:focus,
 .profile-posyandu textarea:focus {
-  border-color: #0b8fac;
+  border-color: #0b8fac; /* A calming blue */
   box-shadow: 0 0 5px rgba(11, 143, 172, 0.3);
   outline: none;
 }
 
 .profile-posyandu textarea {
-  min-height: 120px;
-  resize: vertical;
+  min-height: 120px; /* Minimum height for textarea */
+  resize: vertical; /* Allow vertical resizing only */
 }
 
-
-
+/* Styling for Primary Button (e.g., Edit Profile, Create Profile) */
 .btn-primary {
-  background: #0b8fac;
+  background: #0b8fac; /* A strong blue */
   color: #fff;
   display: inline-block;
   padding: 12px 20px;
@@ -93,38 +96,46 @@
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  margin-top: 20px;
-  margin-right: 10px;
+  margin-top: 20px; /* Spacing from elements above */
+}
+
+.btn-animated {
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .btn-primary:hover {
-  background: #0a7d99;
+  background: #0a7d99; /* Darker blue on hover */
   color: #fff;
 }
 
+/* Styling for Save Button (Specific color) */
 .btn-save {
-  background: #34d399; /* green-400 */
+  background: #34d399; /* Green for save */
   color: #fff;
 }
 
 .btn-save:hover {
-  background: #10b981; /* green-500 */
+  background: #10b981; /* Darker green on hover */
   color: #fff;
 }
 
-.btn-cancel {
-  background: #f87171; /* red-400 */
-  color: #fff;
-}
-
-.btn-cancel:hover {
-  background: #ef4444; /* red-500 */
-  color: #fff;
-}
-
+/* Styling for Secondary Button (e.g., Cancel) */
 .btn-secondary {
-  background: #e5e7eb; /* gray-200 */
-  color: #374151; /* gray-700 */
+  background: #e5e7eb; /* Light gray */
+  color: #374151; /* Dark text for contrast */
   display: inline-block;
   padding: 12px 20px;
   border-radius: 10px;
@@ -135,38 +146,55 @@
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;
-  margin-right: 10px;
+  margin-right: 10px; /* Space between buttons */
 }
 
 .btn-secondary:hover {
-  background: #d1d5db; /* gray-300 */
+  background: #d1d5db; /* Darker gray on hover */
   color: #374151;
 }
 
-
-/* Form H3 */
+/* Styling for Form Sub-Heading */
 .profile-posyandu form h3 {
   font-size: 1.25rem;
   margin-bottom: 16px;
-  color: #0b4a58;
+  color: #0b4a58; /* A darker shade of blue/green */
   text-align: center;
 }
 
-/* Success Message */
+/* Styling for Success Messages */
 .profile-posyandu .success-message {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: #d1fae5; /* Light green background */
+  color: #065f46; /* Dark green text */
   padding: 12px 16px;
   border-radius: 8px;
   margin-bottom: 16px;
   text-align: center;
   font-weight: 600;
-  border: 1px solid #34d399;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border: 1px solid #34d399; /* Green border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.5s ease-in-out;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styling for Labels (Improved styling) */
+.profile-posyandu label {
+  display: block; /* Ensures label is on its own line */
+  font-size: 1.1rem; /* Slightly larger font size */
+  font-weight: 600; /* Bolder text */
+  color: #374151; /* Darker gray color */
+  margin-top: 25px; /* Space above each label */
+  margin-bottom: 8px; /* Space between label and its input */
+  text-align: left;
+}
+
+/* Ensures the very first input/textarea in the form aligns correctly */
+.profile-posyandu form input[type="text"]:first-of-type,
+.profile-posyandu form input[type="url"]:first-of-type,
+.profile-posyandu form textarea:first-of-type {
+    margin-top: 0; /* Remove top margin for the first input after the h3 */
 }

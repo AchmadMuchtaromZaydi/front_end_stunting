@@ -1,13 +1,13 @@
-import AnakPresenter from './anak-presenter.js';
-import Sidebar from '../components/sidebar.js';
-import '../../../styles/daftar-anak.css';
+import AnakPresenter from "./anak-presenter.js";
+import Sidebar from "../components/sidebar.js";
+import "../../../styles/daftar-anak.css"; // Ensure this CSS file is loaded for styling
 
 const AnakPage = {
   async render() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      window.location.hash = '/login';
-      return '';
+      window.location.hash = "/login";
+      return "";
     }
 
     return `
@@ -28,16 +28,16 @@ const AnakPage = {
   async afterRender() {
     Sidebar.afterRender();
 
-    const token = localStorage.getItem('token');
-    const container = document.getElementById('anakList');
-    const searchInput = document.getElementById('searchInput');
+    const token = localStorage.getItem("token");
+    const container = document.getElementById("anakList");
+    const searchInput = document.getElementById("searchInput");
     let anakList = [];
 
     try {
       anakList = await AnakPresenter.fetchAnakList(token);
       renderList(anakList);
 
-      searchInput.addEventListener('input', () => {
+      searchInput.addEventListener("input", () => {
         const keyword = searchInput.value.toLowerCase();
         const filtered = anakList.filter((anak) =>
           anak.nama.toLowerCase().includes(keyword)
@@ -50,7 +50,8 @@ const AnakPage = {
 
     function renderList(data) {
       if (data.length === 0) {
-        container.innerHTML = '<p class="no-data">Tidak ada hasil ditemukan.</p>';
+        container.innerHTML =
+          '<p class="no-data">Tidak ada hasil ditemukan.</p>';
         return;
       }
 
@@ -67,31 +68,31 @@ const AnakPage = {
               <div class="info-wrapper">
                 <div class="info-nama-status">
                   <h3>${anak.nama}</h3>
-                  <p class="status ${anak.label.toLowerCase().replace(/ /g, '-')}">
+                  <p class="status ${anak.label
+                    .toLowerCase()
+                    .replace(/ /g, "-")}">
                     ${anak.label}
                   </p>
                 </div>
                 <div class="anak-details">
-                  <p><strong>ID Anak:</strong> <span>${anak.id}</span></p>
                   <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
-                  <p>Umur: <span>${anak.umur_bulan} bulan</span></p>
-                  <p>Tinggi Badan: <span>${anak.tinggi_badan} cm</span></p>
-                  <p>Berat Badan: <span>${anak.berat_badan} kg</span></p>
-                  <p>Tanggal Data: <span>${new Date(anak.created_at).toLocaleDateString()}</span></p>
+                  <p>Tanggal Data: <span>${new Date(
+                    anak.created_at
+                  ).toLocaleDateString()}</span></p>
                 </div>
               </div>
             </div>
           </div>
         `
         )
-        .join('');
+        .join("");
 
-      const cards = document.querySelectorAll('.anak-card');
+      const cards = document.querySelectorAll(".anak-card");
       cards.forEach((card) => {
-        card.addEventListener('click', () => {
-          const anakId = card.getAttribute('data-id');
-          localStorage.setItem('anak_id', anakId);
-          window.location.hash = '/detail-anak';
+        card.addEventListener("click", () => {
+          const anakId = card.getAttribute("data-id");
+          localStorage.setItem("anak_id", anakId);
+          window.location.hash = "/detail-anak";
         });
       });
     }
