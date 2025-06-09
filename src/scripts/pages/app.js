@@ -3,44 +3,17 @@ import { getActiveRoute } from "../routes/url-parser";
 
 class App {
   #content = null;
-  #drawerButton = null;
-  #navigationDrawer = null;
 
-  constructor({ navigationDrawer, drawerButton, content }) {
+  constructor({ content }) {
     this.#content = content;
-    this.#drawerButton = drawerButton;
-    this.#navigationDrawer = navigationDrawer;
-
-    this._setupDrawer();
     this._setupRouting();
-  }
-
-  _setupDrawer() {
-    this.#drawerButton.addEventListener("click", () => {
-      this.#navigationDrawer.classList.toggle("open");
-    });
-
-    document.body.addEventListener("click", (event) => {
-      if (
-        !this.#navigationDrawer.contains(event.target) &&
-        !this.#drawerButton.contains(event.target)
-      ) {
-        this.#navigationDrawer.classList.remove("open");
-      }
-
-      this.#navigationDrawer.querySelectorAll("a").forEach((link) => {
-        if (link.contains(event.target)) {
-          this.#navigationDrawer.classList.remove("open");
-        }
-      });
-    });
   }
 
   _setupRouting() {
     window.addEventListener("hashchange", () => {
       this.renderPage();
     });
-    this.renderPage(); // Initial render
+    this.renderPage();
   }
 
   async renderPage() {
@@ -61,14 +34,12 @@ class App {
         : "block";
     }
 
-    // Jika belum login dan bukan halaman publik
     if (!token && !publicRoutes.includes(url)) {
       console.log("Redirecting to login...");
       window.location.hash = "/login";
       return;
     }
 
-    // Fitur tambahan: Cek profile saat ke dashboard
     if (url === "/dashboard") {
       const hasProfile = await this._checkProfile();
       if (!hasProfile) {
@@ -81,8 +52,17 @@ class App {
     }
 
     const page = routes[url];
+    console.log("🔍 URL:", url);
+    console.log("🔍 Page object:", page);
+
     if (!page) {
       this.#content.innerHTML = "<h2>404 - Halaman tidak ditemukan</h2>";
+      return;
+    }
+
+    if (typeof page.render !== "function") {
+      console.error("❌ Page object tidak punya .render()!", page);
+      this.#content.innerHTML = "<h2>Page error: render() not found</h2>";
       return;
     }
 
@@ -128,7 +108,6 @@ class App {
     window.location.hash = "/login";
   }
 
-  // FUNGSI TAMBAHAN: cek profile
   async _checkProfile() {
     const token = localStorage.getItem("token");
     if (!token) return false;
@@ -157,12 +136,6 @@ class App {
       return false;
     }
   }
-}
-
-// Untuk menyembunyikan header di halaman profile-posyandu
-if (window.location.hash !== "#/profile-posyandu") {
-  const header = document.querySelector("header");
-  if (header) header.style.display = "block";
 }
 
 export default App;

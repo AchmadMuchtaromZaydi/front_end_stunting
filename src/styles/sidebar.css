@@ -5,21 +5,42 @@
   left: 0;
   height: 100vh;
   width: 250px;
-  background-color: #f4fbfd !important; /* Warna netral cerah agar logo menonjol */
+  background-color: #f4fbfd;
   color: #0b4a58;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index: 10;
+  z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
-.sidebar .logo {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  text-align: center;
+.sidebar.open {
+  transform: translateX(0);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2); /* efek drawer */
+}
+
+.sidebar .sidebar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar .sidebar-logo-img {
+  width: 60px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.sidebar .logo-text {
+  text-align: left;
+  line-height: 1.2;
+  color: #0b4a58;
 }
 
 .sidebar .nav-links {
@@ -27,6 +48,8 @@
   padding: 0;
   margin: 0;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar .nav-links li {
@@ -34,7 +57,7 @@
 }
 
 .sidebar .nav-links a {
-  background: #f7f7f7; /* soft gray, biar keliatan card */
+  background: #f7f7f7;
   color: #0b4a58;
   display: block;
   padding: 12px;
@@ -42,9 +65,6 @@
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* card look */
 }
 
 .sidebar .nav-links a:hover {
@@ -58,56 +78,32 @@
   box-shadow: 0 0 0 2px #0b8fac inset;
 }
 
-.sidebar .nav-links a.active:hover {
-  background: #0b8fac;
-  color: #ffffff;
-  box-shadow: 0 0 0 2px #0b8fac inset;
-}
-
-.sidebar .nav-links a::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background-color: #0b8fac;
-  transition: width 0.3s ease;
-}
-
-.sidebar .nav-links a:hover::before {
-  width: 100%;
-}
-
 .sidebar .credit {
   font-size: 1rem;
   text-align: center;
   color: #ffffff;
-  margin-top: 30px;
+  margin-top: auto;
   font-weight: bold;
   background-color: #0b8fac;
   padding: 10px 16px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  margin-top: auto;
 }
 
-.sidebar-logo {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 20px; /* agak deket ke atas biar rapih */
-  margin-bottom: 20px;
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background-color: #0b8fac;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  font-size: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.sidebar-logo-img {
-  width: 60px;
-  height: auto;
-  margin-right: 10px;
-}
-
-.logo-text {
-  text-align: left;
-  line-height: 1.2;
-  color: #0b4a58;
-}

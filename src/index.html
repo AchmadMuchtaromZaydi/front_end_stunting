@@ -4,43 +4,27 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="favicon.png">
-  <title>App</title>
-  <!-- Link ke file CSS untuk styling -->
-  <!-- Sesuaikan dengan path CSS Anda -->
+  <link rel="shortcut icon" href="favicon.png" />
+  <title>Website Stunting</title>
+
+  <!-- 🟢 Tidak perlu link CSS lagi, CSS sudah di-import di index.js -->
 </head>
 
 <body>
-  <header>
-    <div class="main-header container">
-      <a class="brand-name" href="#/">
-        <img src="kesehatan.png" alt="Logo" class="logo" />
-        Website Stunting
-      </a>
+  <!-- Sidebar rendered via JS -->
+  <div id="sidebar-container"></div>
 
-      <nav id="navigation-drawer" class="navigation-drawer">
-        <ul id="nav-list" class="nav-list">
-          <!-- Link untuk login dan register -->
-          <li><a href="#/login" id="loginLink" style="display: none;">Login</a></li>
-          <li><a href="#/register" id="registerLink" style="display: none;">Register</a></li>
-          <li><a href="#/" id="homeButton" style="display: none;">Beranda</a></li>
+  <!-- Sidebar Toggle Button (always available) -->
+  <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
 
-          <!-- Tombol logout -->
-          <li><button id="logoutButton" style="display: none;">Logout</button></li>
-        </ul>
-      </nav>
+  <!-- Header → kasih id biar bisa dikontrol JS -->
+  <header id="main-header" style="display: none;"></header>
 
-      <button id="drawer-button" class="drawer-button">☰</button>
-    </div>
-  </header>
-
+  <!-- Main Content -->
   <main id="main-content" class="main-content"></main>
 
-  <!-- Menyertakan file JavaScript Anda -->
-  <!-- Pastikan path ini sesuai dengan lokasi file app.js Anda -->
+  <!-- App JS -->
+  <script src="./app.bundle.js"></script>
 </body>
 
 </html>
-
-
-

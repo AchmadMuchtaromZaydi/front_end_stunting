@@ -1,49 +1,57 @@
-/* Styling for Profile Posyandu Container */
+/* Styling Umum */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+/* Card Utama Profile Posyandu */
 .profile-posyandu {
+  background-color: #f4fbfd;
   padding: 40px 30px;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  max-width: 700px;
-  margin: 40px auto;
-  text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 80px auto 30px auto; /* Memusatkan kartu secara horizontal dan memberi jarak atas */
+
+  /* Flexbox untuk memusatkan semua konten di dalam kartu */
+  display: flex;
+  flex-direction: column; /* Mengatur item-item di dalam kartu menjadi kolom */
+  align-items: center; /* Memusatkan item-item secara horizontal di dalam kartu */
 }
 
-/* Styling for Main Title */
 .profile-posyandu h2 {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 1.8rem;
-  color: #222;
+  text-align: center; /* Ini tetap berfungsi karena align-items: center pada parent */
+  color: #0b4a58;
+  margin-bottom: 20px;
 }
 
-/* Styling for Posyandu Photo */
 .profile-posyandu img.posyandu-photo {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  margin-bottom: 2rem;
+  display: block; /* Pastikan gambar adalah elemen blok */
+  width: 150px;
+  height: 150px;
   object-fit: cover;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 20px auto; /* Auto margin membantu memusatkan elemen blok */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for Profile Information Grid */
+/* Informasi Profil (Nama, Alamat, Deskripsi) */
 .profile-info {
   display: grid;
-  grid-template-columns: 200px 10px 1fr;
-  row-gap: 15px;
+  grid-template-columns: auto 10px 1fr; /* Kolom untuk key, kolon, dan value */
+  row-gap: 12px;
   column-gap: 10px;
-  font-size: 1.05rem;
-  color: #444;
-  margin: 0 auto;
-  max-width: 600px; /* Adjust as needed */
-  text-align: left;
+  margin-bottom: 20px;
+  color: #0b4a58;
+  font-size: 1.1rem;
+  /* Tidak ada perubahan di sini untuk tampilan desktop */
 }
 
 .profile-key {
   font-weight: bold;
-  color: #333;
   text-align: right;
 }
 
@@ -52,149 +60,215 @@
 }
 
 .profile-value {
-  word-wrap: break-word; /* Prevents long text from overflowing */
-}
-
-/* Styling for Form Input Fields */
-.profile-posyandu input[type="text"],
-.profile-posyandu input[type="url"],
-.profile-posyandu textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 1rem;
-  line-height: 1.5;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  color: #111827;
-  background-color: #fafafa;
-}
-
-.profile-posyandu input[type="text"]:focus,
-.profile-posyandu input[type="url"]:focus,
-.profile-posyandu textarea:focus {
-  border-color: #0b8fac; /* A calming blue */
-  box-shadow: 0 0 5px rgba(11, 143, 172, 0.3);
-  outline: none;
-}
-
-.profile-posyandu textarea {
-  min-height: 120px; /* Minimum height for textarea */
-  resize: vertical; /* Allow vertical resizing only */
-}
-
-/* Styling for Primary Button (e.g., Edit Profile, Create Profile) */
-.btn-primary {
-  background: #0b8fac; /* A strong blue */
-  color: #fff;
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 20px; /* Spacing from elements above */
-}
-
-.btn-animated {
-  animation: fadeInUp 0.6s ease-out;
-  animation-delay: 0.3s;
-  animation-fill-mode: both;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.btn-primary:hover {
-  background: #0a7d99; /* Darker blue on hover */
-  color: #fff;
-}
-
-/* Styling for Save Button (Specific color) */
-.btn-save {
-  background: #34d399; /* Green for save */
-  color: #fff;
-}
-
-.btn-save:hover {
-  background: #10b981; /* Darker green on hover */
-  color: #fff;
-}
-
-/* Styling for Secondary Button (e.g., Cancel) */
-.btn-secondary {
-  background: #e5e7eb; /* Light gray */
-  color: #374151; /* Dark text for contrast */
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 20px;
-  margin-right: 10px; /* Space between buttons */
-}
-
-.btn-secondary:hover {
-  background: #d1d5db; /* Darker gray on hover */
-  color: #374151;
-}
-
-/* Styling for Form Sub-Heading */
-.profile-posyandu form h3 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  color: #0b4a58; /* A darker shade of blue/green */
-  text-align: center;
-}
-
-/* Styling for Success Messages */
-.profile-posyandu .success-message {
-  background-color: #d1fae5; /* Light green background */
-  color: #065f46; /* Dark green text */
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  text-align: center;
-  font-weight: 600;
-  border: 1px solid #34d399; /* Green border */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Styling for Labels (Improved styling) */
-.profile-posyandu label {
-  display: block; /* Ensures label is on its own line */
-  font-size: 1.1rem; /* Slightly larger font size */
-  font-weight: 600; /* Bolder text */
-  color: #374151; /* Darker gray color */
-  margin-top: 25px; /* Space above each label */
-  margin-bottom: 8px; /* Space between label and its input */
   text-align: left;
 }
 
-/* Ensures the very first input/textarea in the form aligns correctly */
-.profile-posyandu form input[type="text"]:first-of-type,
-.profile-posyandu form input[type="url"]:first-of-type,
-.profile-posyandu form textarea:first-of-type {
-    margin-top: 0; /* Remove top margin for the first input after the h3 */
+/* Styling Tombol Umum */
+.btn-primary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0b8fac;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0a7a99;
+  transform: translateY(-2px);
+}
+
+.btn-warning {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f1c40f; /* Kuning */
+  color: #333;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-warning:hover {
+  background-color: #d4ac0d; /* Kuning lebih gelap saat hover */
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e74c3c; /* Merah */
+  color: #ffffff;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #bbb;
+  transform: translateY(-2px);
+}
+
+/* Pemusatan Tombol Tunggal di Desktop (contoh: 'Edit Profile', 'Simpan Profile') */
+.btn-warning, /* Untuk tombol Edit Profile */
+.btn-primary.btn-save { /* Untuk tombol Simpan Profile/Perubahan di form */
+    display: block; /* Jadikan tombol sebagai elemen blok agar bisa di-margin: auto */
+    margin: 20px auto 0 auto; /* Beri jarak atas 20px, lalu pusatkan secara horizontal */
+    width: fit-content; /* Biarkan lebarnya sesuai konten teks, tidak 100% */
+}
+
+/* Pemusatan Tombol 'Batal' di Form Edit (jika ada) di Desktop */
+.btn-secondary {
+    display: block;
+    margin: 10px auto 0 auto; /* Beri jarak atas 10px, lalu pusatkan secara horizontal */
+    width: fit-content;
+}
+
+/* Styling Form */
+form label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #0b4a58;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Pastikan padding tidak menambah lebar elemen */
+}
+
+form textarea {
+  resize: vertical; /* Memungkinkan pengguna mengubah ukuran tinggi textarea */
+  min-height: 100px;
+}
+
+/* Styling Group Tombol (misal: tombol 'Simpan' dan 'Batal' berdampingan) */
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Menjauhkan tombol di grup */
+  margin-top: 20px;
+  width: 100%; /* Pastikan button-group mengambil lebar penuh untuk justifikasi */
+}
+
+.button-group .btn-primary {
+  flex: 1; /* Biarkan tombol utama mengambil sisa ruang */
+  margin-right: 10px; /* Jarak antar tombol di grup */
+}
+
+.button-group .btn-secondary {
+  flex: 1; /* Biarkan tombol sekunder mengambil sisa ruang */
+}
+
+
+/* ========== Responsive Adjustments (untuk layar lebih kecil) ========== */
+@media screen and (max-width: 600px) {
+  .profile-posyandu {
+    padding: 20px 15px;
+    margin: 60px 10px 20px 10px; /* Tambah jarak top di mobile juga, dan margin samping */
+    /* Flexbox properties sudah ada di luar media query untuk centering */
+  }
+
+  .profile-posyandu img.posyandu-photo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  /* Perubahan untuk .profile-info di mobile agar terlihat rapi */
+  .profile-info {
+    display: flex; /* Ubah ke flexbox untuk stacking */
+    flex-direction: column; /* Item-item di dalamnya (values) akan tersusun vertikal */
+    align-items: center; /* Memusatkan setiap 'profile-value' secara horizontal */
+    text-align: center; /* Memusatkan teks di dalam 'profile-value' */
+    row-gap: 5px; /* Mengurangi jarak antar baris yang distack */
+    margin-bottom: 20px; /* Jarak bawah tetap */
+    font-size: 1.1rem; /* Ukuran font tetap */
+    color: #0b4a58; /* Warna teks tetap */
+    width: 100%; /* Pastikan mengambil lebar penuh untuk pemusatan */
+  }
+
+  .profile-key,
+  .profile-colon {
+    display: none; /* Sembunyikan key & colon untuk tampilan mobile yang lebih ringkas */
+  }
+
+  .profile-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #222;
+    /* text-align: center; sudah diatur di parent .profile-info */
+  }
+
+  /* Penyesuaian untuk button-group di mobile */
+  .button-group {
+    flex-direction: column; /* Susun tombol secara vertikal di mobile */
+    align-items: center; /* Pusatkan tombol-tombol yang sudah distack */
+    width: 100%; /* Pastikan mengambil lebar penuh agar tombol bisa di tengah */
+  }
+
+  .button-group .btn-primary,
+  .button-group .btn-secondary {
+    margin-right: 0; /* Hapus margin kanan saat distack */
+    margin-bottom: 10px; /* Jarak antar tombol yang distack */
+    width: 100%; /* Buat tombol memenuhi lebar penuh */
+    max-width: 250px; /* Batasi lebar maksimum agar tidak terlalu lebar */
+  }
+
+  /* Penyesuaian untuk tombol tunggal 'Edit Profile' dan tombol 'Simpan Profile' / 'Simpan Perubahan' di mobile */
+  .btn-warning,
+  .btn-primary.btn-save {
+    display: block; /* Pastikan tetap block */
+    margin: 20px auto 0 auto; /* Pusatkan horizontal, beri jarak atas */
+    width: 100%; /* Lebar 100% untuk kemudahan klik */
+    max-width: 250px; /* Batasi lebar maksimum */
+  }
+
+  /* Untuk tombol Batal di form edit pada mobile */
+  .btn-secondary {
+    display: block;
+    margin: 10px auto 0 auto;
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+.preview-container {
+  margin-top: 12px;
+}
+
+.preview-foto {
+  max-width: 150px;
+  max-height: 150px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+}
+
+.preview-container {
+  margin-top: 12px;
+}
+
+.preview-foto {
+  max-width: 150px;
+  max-height: 150px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
 }

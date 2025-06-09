@@ -1,17 +1,27 @@
-import { register } from '../../data/api.js';
-import RegisterPresenter from './register-presenter.js';
-import '../../../styles/auth.css';
+import Header from "../components/header.js";
+import RegisterPresenter from "./register-presenter.js";
+import "../../../styles/auth.css";
 
 const RegisterPage = {
   async render() {
     return `
+      ${Header.render()}
       <section class="form-page">
         <form id="registerForm" class="form-card">
           <label for="username">Username</label>
           <input id="username" name="username" type="text" placeholder="Contoh: johndoe" required />
 
           <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="********" required />
+          <div class="password-wrapper">
+            <input id="password" name="password" type="password" placeholder="********" required />
+            <span class="toggle-password" data-target="password">👁️</span>
+          </div>
+
+          <label for="confirmPassword">Konfirmasi Password</label>
+          <div class="password-wrapper">
+            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="********" required />
+            <span class="toggle-password" data-target="confirmPassword">👁️</span>
+          </div>
 
           <button type="submit" id="submitBtn">Register</button>
 
@@ -24,50 +34,56 @@ const RegisterPage = {
   },
 
   async afterRender() {
-    const form = document.getElementById('registerForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const errorElem = document.getElementById('registerError');
+    Header.afterRender();
+
+    const form = document.getElementById("registerForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const errorElem = document.getElementById("registerError");
 
     if (!form || !errorElem || !submitBtn) {
-      console.error('Element form atau error tidak ditemukan');
+      console.error("Element form atau error tidak ditemukan");
       return;
     }
 
     this.presenter = new RegisterPresenter({ view: this });
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const username = form.username.value.trim();
       const password = form.password.value.trim();
+      const confirmPassword = form.confirmPassword.value.trim();
 
-      // Bersihkan pesan error sebelumnya
-      this.showError('');
+      this.showError("");
 
-      // Validasi dasar
-      if (!username || !password) {
-        this.showError('Username dan password tidak boleh kosong.');
+      if (!username || !password || !confirmPassword) {
+        this.showError("Semua field wajib diisi.");
         return;
       }
 
       if (password.length < 6) {
-        this.showError('Password minimal 6 karakter.');
+        this.showError("Password minimal 6 karakter.");
         return;
       }
 
-      // Tampilkan loading state
+      if (password !== confirmPassword) {
+        this.showError("Password dan konfirmasi password tidak sama.");
+        return;
+      }
+
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Mendaftarkan...';
+      submitBtn.textContent = "Mendaftarkan...";
 
       await this.presenter.handleRegister(username, password);
 
-      // Kembalikan tombol seperti semula
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Register';
+      submitBtn.textContent = "Register";
     });
+
+    this.initTogglePassword();
   },
 
   showError(message) {
-    const errorElem = document.getElementById('registerError');
+    const errorElem = document.getElementById("registerError");
     if (errorElem) {
       errorElem.textContent = message;
     }
@@ -75,7 +91,23 @@ const RegisterPage = {
 
   showSuccess(message) {
     alert(message);
-  }
+  },
+
+  initTogglePassword() {
+    document.querySelectorAll(".toggle-password").forEach((icon) => {
+      icon.addEventListener("click", () => {
+        const targetId = icon.getAttribute("data-target");
+        const input = document.getElementById(targetId);
+        if (input.type === "password") {
+          input.type = "text";
+          icon.textContent = "🙈";
+        } else {
+          input.type = "password";
+          icon.textContent = "👁️";
+        }
+      });
+    });
+  },
 };
 
 export default RegisterPage;

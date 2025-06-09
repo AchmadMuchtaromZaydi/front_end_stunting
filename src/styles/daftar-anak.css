@@ -1,17 +1,23 @@
-.dashboard-layout {
-  display: flex;
-}
+/* ===== ANAK PAGE ===== */
 
+/* Tidak pakai .dashboard-layout */
+
+/* MAIN CONTENT */
 .main-content {
   flex-grow: 1;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  min-height: 100vh;
+  padding: 40px 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: #f9f9f9;
+    margin: 80px auto 30px auto; /* Sudah konsisten */
+
 }
 
 h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 /* Search dan tombol tambah */
@@ -20,24 +26,25 @@ h2 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   gap: 1rem;
 }
 
 .search-input {
   flex: 1;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   max-width: 400px;
+  font-size: 1rem;
 }
 
 .btn-tambah {
   display: inline-block;
-  background: #4DC1B1;
+  background: #4dc1b1;
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
   transition: background-color 0.3s ease;
   text-decoration: none;
@@ -58,16 +65,17 @@ h2 {
 /* Card anak */
 .anak-card {
   background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
   cursor: pointer;
 }
 
 .anak-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* Header card: foto + info */
@@ -110,17 +118,18 @@ h2 {
 
 .info-nama-status h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 /* Label status */
 .status {
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: bold;
   text-transform: capitalize;
   white-space: nowrap;
+  margin-left: 10px;
 }
 
 .status.normal {
@@ -140,10 +149,10 @@ h2 {
 
 /* Detail anak */
 .anak-details {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
 }
 
 .anak-details p {
@@ -159,4 +168,21 @@ h2 {
   text-align: center;
   color: #888;
   margin-top: 2rem;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 600px) {
+  .info-nama-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .status {
+    align-self: flex-start;
+    white-space: normal;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    margin-left: 0;
+  }
 }

@@ -1,20 +1,14 @@
-import AnakPresenter from "./anak-presenter.js";
-import Sidebar from "../components/sidebar.js";
-import "../../../styles/daftar-anak.css"; // Ensure this CSS file is loaded for styling
+import Sidebar from "../components/sidebar";
+import AnakPresenter from "./anak-presenter";
+import "../../../styles/daftar-anak.css"; // <--- ini ditambah
 
 const AnakPage = {
   async render() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.hash = "/login";
-      return "";
-    }
-
     return `
-      <div class="dashboard-layout">
-        ${Sidebar.render()}
+      <div class="app-container">
+        ${Sidebar.render("Daftar Anak")}
         <main class="main-content">
-          <h2>Daftar Anak</h2>
+          <h2 class="page-title">Daftar Anak</h2>
           <div class="search-wrapper">
             <input type="text" id="searchInput" placeholder="Cari nama anak..." class="search-input" />
             <a href="#/tambah-anak" class="btn-tambah">+ Tambah Anak</a>
@@ -56,35 +50,43 @@ const AnakPage = {
       }
 
       container.innerHTML = data
-        .map(
-          (anak) => `
-          <div class="anak-card" data-id="${anak.id}">
-            <div class="anak-card-header">
-              ${
-                anak.foto_url
-                  ? `<img src="${anak.foto_url}" alt="Foto ${anak.nama}" class="foto-anak" />`
-                  : '<div class="placeholder-foto"></div>'
-              }
-              <div class="info-wrapper">
-                <div class="info-nama-status">
-                  <h3>${anak.nama}</h3>
-                  <p class="status ${anak.label
-                    .toLowerCase()
-                    .replace(/ /g, "-")}">
-                    ${anak.label}
-                  </p>
-                </div>
-                <div class="anak-details">
-                  <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
-                  <p>Tanggal Data: <span>${new Date(
-                    anak.created_at
-                  ).toLocaleDateString()}</span></p>
+        .map((anak) => {
+          // Ambil foto dari localStorage dengan key yang aman + konsisten
+          const fotoLocal = localStorage.getItem(
+            `foto_anak_${anak.nama.trim().toLowerCase()}_${anak.jenis_kelamin
+              .trim()
+              .toLowerCase()}`
+          );
+          const fotoSrc = fotoLocal || anak.foto_url;
+
+          return `
+            <div class="anak-card" data-id="${anak.id}">
+              <div class="anak-card-header">
+                ${
+                  fotoSrc
+                    ? `<img src="${fotoSrc}" alt="Foto ${anak.nama}" class="foto-anak" />`
+                    : '<div class="placeholder-foto"></div>'
+                }
+                <div class="info-wrapper">
+                  <div class="info-nama-status">
+                    <h3>${anak.nama}</h3>
+                    <p class="status ${anak.label
+                      .toLowerCase()
+                      .replace(/ /g, "-")}">
+                      ${anak.label}
+                    </p>
+                  </div>
+                  <div class="anak-details">
+                    <p>Jenis Kelamin: <span>${anak.jenis_kelamin}</span></p>
+                    <p>Tanggal Data: <span>${new Date(
+                      anak.created_at
+                    ).toLocaleDateString()}</span></p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `
-        )
+          `;
+        })
         .join("");
 
       const cards = document.querySelectorAll(".anak-card");

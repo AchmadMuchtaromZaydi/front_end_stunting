@@ -1,0 +1,283 @@
+/* === Mobile Header === */
+#main-header {
+  display: none;
+}
+
+@media (max-width: 999px) {
+  #main-header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: #f4fbfd;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .mobile-navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+  }
+
+  .mobile-navbar .mobile-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-navbar .mobile-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0b4a58;
+  }
+}
+
+/* === Sidebar Toggle always on top === */
+.sidebar-toggle {
+  z-index: 1101;
+}
+
+/* === Dashboard Page === */
+@media (max-width: 768px) {
+  .dashboard-page .main-content {
+    padding: 20px 15px;
+    max-width: 100%;
+    margin: 20px auto 20px auto;
+  }
+
+  .dashboard-page .summary-boxes {
+    gap: 15px;
+  }
+
+  .dashboard-page .summary-box {
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+
+  .dashboard-page .summary-box span {
+    font-size: 1.1rem;
+  }
+}
+
+/* === Anak Page === */
+@media (max-width: 768px) {
+  .anak-page .main-content {
+    padding: 20px 15px;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  .anak-page .search-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .anak-page .search-filter input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .anak-page .search-filter select {
+    width: 100%;
+  }
+}
+
+/* === Detail Anak Page === */
+@media (max-width: 768px) {
+  .detail-anak-page .main-content {
+    padding: 20px 15px;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  .detail-anak-page .riwayat-table th,
+  .detail-anak-page .riwayat-table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .detail-anak-page .add-history-form {
+    padding: 15px;
+  }
+}
+
+/* === Profile Posyandu Page === */
+@media (max-width: 768px) {
+  .profile-posyandu-page .main-content {
+    padding: 20px 15px;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  .profile-posyandu-page form label {
+    font-size: 1rem;
+  }
+
+  .profile-posyandu-page form input {
+    font-size: 1rem;
+  }
+}
+
+/* === Auth Pages (Login/Register) === */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 20px 15px;
+    width: 100%;
+  }
+
+  .auth-form {
+    padding: 20px;
+  }
+}
+
+/* === Report Page === */
+@media (max-width: 768px) {
+  .report-page .main-content {
+    padding: 20px 15px;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  .report-page table th,
+  .report-page table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+/* === Anak Page Responsive FINAL === */
+@media (max-width: 768px) {
+  .anak-page.main-content {
+    padding: 16px 12px;
+    max-width: 100%;
+    margin: 16px auto;
+  }
+
+  .anak-page .search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
+
+  .anak-page .search-wrapper input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .anak-page .search-wrapper .btn-tambah {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+
+  .anak-page .anak-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .anak-page .anak-card {
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+
+  .anak-page .anak-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .anak-page .foto-anak {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+
+  .anak-page .placeholder-foto {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-bottom: 8px;
+  }
+
+  .anak-page .info-wrapper {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .anak-page .info-nama-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .anak-page .info-nama-status h3 {
+    font-size: 1.1rem;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .anak-page .anak-details {
+    text-align: left;
+    padding: 0 4px;
+  }
+
+  .anak-page .anak-details p {
+    font-size: 0.9rem;
+    margin: 4px 0;
+    word-break: break-word;
+  }
+}
+
+/* === Mobile Sedang (<=480px) === */
+@media (max-width: 480px) {
+  .anak-page .foto-anak,
+  .anak-page .placeholder-foto {
+    width: 55px;
+    height: 55px;
+  }
+
+  .anak-page .info-nama-status h3 {
+    font-size: 1rem;
+  }
+
+  .anak-page .anak-details p {
+    font-size: 0.85rem;
+  }
+}
+
+/* === Mobile Kecil (<=360px) === */
+@media (max-width: 360px) {
+  .anak-page .foto-anak,
+  .anak-page .placeholder-foto {
+    width: 50px;
+    height: 50px;
+  }
+
+  .anak-page .anak-card {
+    padding: 8px;
+  }
+
+  .anak-page .info-nama-status h3 {
+    font-size: 0.95rem;
+  }
+
+  .anak-page .anak-details p {
+    font-size: 0.8rem;
+  }
+}

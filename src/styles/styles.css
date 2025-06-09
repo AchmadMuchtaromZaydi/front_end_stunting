@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +6,8 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f2f5; /* A light background for the body */
 }
 
 .container {
@@ -14,6 +16,7 @@ body {
   max-width: 1300px;
 }
 
+/* HEADER - Not directly used in this dashboard view, but keeping it for completeness */
 header {
   background-color: #5bb1ad;
 }
@@ -42,66 +45,10 @@ header {
   height: auto;
 }
 
-.navigation-drawer {
-  min-height: 100vh;
-  width: 200px;
-  padding: 20px 10px;
-  background-color: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 0 4px 2px #00000033;
-  transform: translateX(-100%);
-  transition: transform 350ms ease;
-  z-index: 9999;
-}
+/* NAVIGATION DRAWER - Keeping existing as it's part of the sidebar.css now */
+/* No changes needed here directly, as it's defined in sidebar.css */
 
-.navigation-drawer.open {
-  transform: translateX(0);
-}
-
-.drawer-button {
-  padding: 8px;
-  border: 0;
-  border-radius: 4px;
-  background-color: transparent;
-  font-weight: bold;
-  font-size: 28px;
-  color: #141e16;
-  cursor: pointer;
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.nav-list li a,
-.nav-list li button {
-  padding: 6px 10px;
-  display: block;
-  color: #333;
-  text-decoration: none;
-  background: none;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-  text-align: left;
-}
-
-.nav-list li a:hover,
-.nav-list li button:hover {
-  text-decoration: underline;
-}
-
-/* MAIN */
-.main-content {
-  padding-block: 20px;
-}
-
-/* Tombol logout */
+/* LOGOUT BUTTON - Keeping existing */
 #logoutButton {
   background-color: #e43500;
   color: white;
@@ -118,7 +65,7 @@ header {
   background-color: #c76f00;
 }
 
-/* FORM STYLES */
+/* FORM STYLES - Keeping existing as it's not dashboard-specific */
 .form-page {
   display: flex;
   justify-content: center;
@@ -187,7 +134,7 @@ header {
   text-align: center;
 }
 
-/* LOADING SPINNER */
+/* LOADING SPINNER - Keeping existing */
 .spinner {
   margin: 20px auto;
   border: 4px solid #f3f3f3;
@@ -199,35 +146,39 @@ header {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* RESPONSIVE STYLES */
-@media screen and (min-width: 1000px) {
-  .navigation-drawer {
-    min-height: auto;
-    width: auto;
-    padding: 0;
-    background-color: transparent;
-    position: static;
-    box-shadow: none;
-    transform: translateX(0);
+/* === APP CONTAINER & MAIN CONTENT === */
+.app-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px; /* Uniform padding */
+  margin-left: 250px; /* Match sidebar width */
+  max-width: calc(100% - 250px); /* Adjust max-width to consider sidebar */
+  box-sizing: border-box;
+  overflow-y: auto; /* Enable scrolling for content if it overflows */
+}
+
+/* Responsive */
+@media screen and (max-width: 999px) {
+  .app-container {
+    flex-direction: column;
   }
 
-  .nav-list {
-    flex-direction: row;
-    gap: 20px;
-  }
-
-  .nav-list li a,
-  .nav-list li button {
-    display: inline-block;
-    padding: 6px 10px;
-    text-align: center;
-  }
-
-  .drawer-button {
-    display: none;
+  .main-content {
+    margin-left: 0; /* No margin-left on mobile */
+    padding: 20px 15px; /* Adjust padding for mobile */
+    max-width: 100%; /* Full width on mobile */
   }
 }
