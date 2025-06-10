@@ -46,11 +46,13 @@ const DashboardPage = {
           </div>
 
           <!-- Modal -->
-          <div id="anak-modal" class="anak-modal hidden">
-            <div class="anak-modal-content">
-              <span class="close-modal">&times;</span>
-              <h3 id="modal-title"></h3>
-              <ul id="modal-list" style="list-style: none; padding: 0;"></ul>
+          <div id="anak-modal" class="modal-backdrop hidden">
+            <div class="modal">
+              <div class="modal-header">
+                <h2 id="modal-title">Daftar Anak</h2>
+                <button class="modal-close" onclick="closeDashboardModal()">&times;</button>
+              </div>
+              <div class="modal-body" id="modal-list"></div>
             </div>
           </div>
         </main>
@@ -65,32 +67,36 @@ const DashboardPage = {
     const statistik = await getStatistik(token);
     const anakData = await getStatusAnak(token);
 
-    // === Log Debug ===
-    console.log("=== Statistik ===", statistik);
-    console.log("=== Tahun terbaru ===", Object.keys(statistik).sort().reverse()[0]);
-
-    console.log("=== Semua Anak dengan tahun ===", anakData.map(a => ({
-      nama: a.nama,
-      label: a.label,
-      tahun: new Date(a.created_at).getFullYear()
-    })));
-
-    // === End Log Debug ===
+    console.log("=== Anak Data ===");
+    anakData.forEach((anak) => {
+      console.log(
+        `${anak.nama} | label: ${anak.label} | tahun: ${new Date(
+          anak.created_at
+        ).getFullYear()}`
+      );
+    });
 
     if (statistik) {
-      const tahunList = Object.keys(statistik).sort().reverse();
+      let tahunList = Object.keys(statistik).sort().reverse();
+
+      // Pastikan hanya ada 1 "All"
+      if (!tahunList.includes("All")) {
+        tahunList.unshift("All");
+      }
+
       const tahunSelect = document.getElementById("tahun-select");
 
       // Isi dropdown tahun
+      tahunSelect.innerHTML = ""; // Clear dulu supaya tidak duplikat
       tahunList.forEach((tahun) => {
         const option = document.createElement("option");
-        option.value = tahun;
-        option.textContent = tahun;
+        option.value = tahun === "All" ? "All" : tahun; // Value = "All"
+        option.textContent = tahun === "All" ? "Semua Tahun" : tahun;
         tahunSelect.appendChild(option);
       });
 
-      // Default tahun aktif = tahun terbaru
-      let tahunAktif = tahunList[0];
+      // Default tahun aktif = "All"
+      let tahunAktif = "All";
       updateDashboard(tahunAktif, statistik, anakData);
 
       // Event change tahun
@@ -104,10 +110,43 @@ const DashboardPage = {
         box.addEventListener("click", () => {
           const status = box.getAttribute("data-status");
 
-          // Filter anak per tahun aktif
+          // MAPPING agar cocok dengan label anakData
+          const labelMapping = {
+            "Severely Stunted": [
+              "Penderita Stunting",
+              "Severely Stunted",
+              "Severely stunted",
+              "SEVERELY STUNTED",
+            ],
+            Stunted: ["Berpotensi Stunting", "Stunted"],
+            Normal: ["Normal"],
+          };
+
+          const targetLabels = labelMapping[status] || [status];
+
+          console.log(
+            `=== Klik Status: ${status} → TargetLabels: ${targetLabels}`
+          );
+
           const filtered = anakData.filter((anak) => {
-            const tahunAnak = new Date(anak.created_at).getFullYear().toString();
-            return anak.label === status && tahunAnak === tahunAktif;
+            const tahunAnak = new Date(anak.created_at)
+              .getFullYear()
+              .toString();
+            return (
+              targetLabels
+                .map((l) => l.toLowerCase().trim())
+                .includes(anak.label.toLowerCase().trim()) &&
+              (tahunAktif === "All" || tahunAnak === tahunAktif)
+            );
+          });
+
+          console.log("Anak Data Matching:");
+          filtered.forEach((a) => {
+            console.log(
+              `${a.nama} | Label: ${a.label} | Tahun: ${new Date(
+                a.created_at
+              ).getFullYear()}`
+            );
           });
 
           tampilkanModal(filtered, status, tahunAktif);
@@ -115,21 +154,20 @@ const DashboardPage = {
       });
 
       // Modal close actions
-      document.querySelector(".close-modal").addEventListener("click", () => {
-        document.getElementById("anak-modal").classList.add("hidden");
-      });
-
       document.getElementById("anak-modal").addEventListener("click", (e) => {
         if (e.target.id === "anak-modal") {
-          document.getElementById("anak-modal").classList.add("hidden");
+          closeDashboardModal();
         }
       });
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-          document.getElementById("anak-modal").classList.add("hidden");
+          closeDashboardModal();
         }
       });
+
+      // Expose closeDashboardModal ke global
+      window.closeDashboardModal = closeDashboardModal;
     } else {
       console.warn("Data statistik tidak tersedia.");
     }
@@ -137,14 +175,15 @@ const DashboardPage = {
 };
 
 function updateDashboard(tahun, statistik, anakData) {
-  const dataTahun = statistik[tahun];
+  const chartTahun =
+    tahun === "All" ? Object.keys(statistik).sort().reverse()[0] : tahun;
+  const dataTahun = statistik[chartTahun];
 
-  // Update summary box
   document.getElementById("normal-count").textContent = dataTahun.Normal || 0;
   document.getElementById("stunted-count").textContent = dataTahun.Stunted || 0;
-  document.getElementById("severely-stunted-count").textContent = dataTahun["Severely Stunted"] || 0;
+  document.getElementById("severely-stunted-count").textContent =
+    dataTahun["Severely Stunted"] || 0;
 
-  // Update chart
   const ctx = document.getElementById("stuntingChart").getContext("2d");
 
   if (chartInstance) chartInstance.destroy();
@@ -155,7 +194,7 @@ function updateDashboard(tahun, statistik, anakData) {
       labels: ["Normal", "Stunted", "Severely Stunted"],
       datasets: [
         {
-          label: `Statistik Anak Berdasarkan Status Gizi (Tahun ${tahun})`,
+          label: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
           data: [
             dataTahun.Normal,
             dataTahun.Stunted,
@@ -176,7 +215,7 @@ function updateDashboard(tahun, statistik, anakData) {
       plugins: {
         title: {
           display: true,
-          text: `Statistik Anak Berdasarkan Status Gizi (Tahun ${tahun})`,
+          text: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
         },
         legend: { display: false },
       },
@@ -193,32 +232,45 @@ function updateDashboard(tahun, statistik, anakData) {
 function tampilkanModal(data, status, tahunAktif) {
   const modal = document.getElementById("anak-modal");
   const title = document.getElementById("modal-title");
-  const list = document.getElementById("modal-list");
+  const body = document.getElementById("modal-list");
 
-  const sorted = [...data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const sorted = [...data].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
 
-  title.textContent = `Daftar Anak dengan Status: ${getLabelDisplay(status)} (Tahun ${tahunAktif})`;
+  title.textContent = `Daftar Anak dengan Status: ${getLabelDisplay(status)} (${
+    tahunAktif === "All" ? "Semua Tahun" : `Tahun ${tahunAktif}`
+  })`;
 
-  list.innerHTML =
+  body.innerHTML =
     sorted.length === 0
-      ? `<li>Tidak ada anak dengan status ini di tahun ${tahunAktif}.</li>`
+      ? `<p><em>Tidak ada anak dengan status ini di ${
+          tahunAktif === "All" ? "Semua Tahun" : `tahun ${tahunAktif}`
+        }.</em></p>`
       : sorted
           .map(
             (anak) => `
-      <li class="anak-item-card">
-        <div class="anak-item-header"><strong>${anak.nama}</strong></div>
-        <div class="anak-item-body">
-          ${anak.jenis_kelamin} • Umur: ${anak.umur_bulan} bln<br>
-          TB: ${anak.tinggi_badan} cm • BB: ${anak.berat_badan} kg
-        </div>
-        <div class="anak-item-footer">
-          Tanggal input: ${new Date(anak.created_at).toLocaleDateString()}
-        </div>
-      </li>`
+    <div class="anak-item-card">
+      <div class="anak-item-header"><strong>${anak.nama}</strong></div>
+      <div class="anak-item-body">
+        ${anak.jenis_kelamin} • Umur: ${anak.umur_bulan} bln<br>
+        TB: ${anak.tinggi_badan} cm • BB: ${anak.berat_badan} kg
+      </div>
+      <div class="anak-item-footer">
+        Tanggal input: ${new Date(anak.created_at).toLocaleDateString()}
+      </div>
+    </div>`
           )
           .join("");
 
   modal.classList.remove("hidden");
+  modal.classList.add("open");
+}
+
+function closeDashboardModal() {
+  const modal = document.getElementById("anak-modal");
+  modal.classList.remove("open");
+  modal.classList.add("hidden");
 }
 
 function getLabelDisplay(label) {
