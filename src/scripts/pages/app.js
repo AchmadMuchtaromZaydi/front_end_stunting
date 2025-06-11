@@ -20,50 +20,24 @@ class App {
     const url = getActiveRoute();
     const token = localStorage.getItem("token");
     const publicRoutes = ["/login", "/register"];
-    const hiddenHeaderRoutes = [
-      "/dashboard",
-      "/anak",
-      "/tambah-anak",
-      "/detail-anak",
-    ];
-
-    const header = document.querySelector("header");
-    if (header) {
-      header.style.display = hiddenHeaderRoutes.includes(url)
-        ? "none"
-        : "block";
-    }
 
     if (!token && !publicRoutes.includes(url)) {
-      console.log("Redirecting to login...");
       window.location.hash = "/login";
-      return;
+      return false;
     }
 
     if (url === "/dashboard") {
       const hasProfile = await this._checkProfile();
       if (!hasProfile) {
-        console.log(
-          "Redirecting to /profile-posyandu karena belum punya profile..."
-        );
         window.location.hash = "/profile-posyandu";
-        return;
+        return false;
       }
     }
 
     const page = routes[url];
-    console.log("🔍 URL:", url);
-    console.log("🔍 Page object:", page);
-
-    if (!page) {
+    if (!page || typeof page.render !== "function") {
       this.#content.innerHTML = "<h2>404 - Halaman tidak ditemukan</h2>";
-      return;
-    }
-
-    if (typeof page.render !== "function") {
-      console.error("❌ Page object tidak punya .render()!", page);
-      this.#content.innerHTML = "<h2>Page error: render() not found</h2>";
-      return;
+      return true;
     }
 
     try {
@@ -76,6 +50,7 @@ class App {
     }
 
     this._updateUIBasedOnLogin();
+    return true;
   }
 
   _updateUIBasedOnLogin() {
@@ -123,14 +98,7 @@ class App {
       );
 
       const result = await response.json();
-
-      if (response.ok && result.data) {
-        console.log("✅ Sudah punya profile");
-        return true;
-      } else {
-        console.log("⚠️ Belum punya profile");
-        return false;
-      }
+      return response.ok && result.data;
     } catch (error) {
       console.error("❌ Error cek profile:", error);
       return false;

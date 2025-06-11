@@ -5,15 +5,9 @@ const Sidebar = {
     const activePage = window.location.hash;
 
     return `
-      <nav class="sidebar">
-        <div class="top-section">
-          <div class="sidebar-logo">
-            <img src="kesehatan.png" alt="Logo" class="sidebar-logo-img" />
-            <div class="logo-text">
-              <strong>SMART</strong><br><small>Stunting Monitoring</small>
-            </div>
-          </div>
-        </div>
+      <div class="overlay" id="overlay"></div>
+      <nav class="sidebar" id="sidebar">
+        <div class="top-section"></div>
         <ul class="nav-links">
           <li><a href="#/dashboard" class="${
             activePage === "#/dashboard" ? "active" : ""
@@ -35,18 +29,39 @@ const Sidebar = {
   },
 
   afterRender() {
+    const sidebar = document.getElementById("sidebar");
+    const burgerButton = document.getElementById("sidebar-toggle");
+    const overlay = document.getElementById("overlay");
+
     document.getElementById("logoutBtn")?.addEventListener("click", () => {
       localStorage.removeItem("token");
       window.location.hash = "/login";
     });
 
-    // Auto close sidebar ketika klik link → UX makin mantap:
-    const sidebar = document.querySelector(".sidebar");
-
     sidebar?.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         sidebar.classList.remove("open");
+        overlay?.classList.remove("show");
+        if (window.innerWidth < 1000 && burgerButton) {
+          burgerButton.style.display = "block";
+        }
       });
+    });
+
+    burgerButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (window.innerWidth >= 1000) return;
+      sidebar.classList.add("open");
+      overlay?.classList.add("show");
+      burgerButton.style.display = "none";
+    });
+
+    overlay?.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+      if (window.innerWidth < 1000 && burgerButton) {
+        burgerButton.style.display = "block";
+      }
     });
   },
 };

@@ -1,13 +1,20 @@
 .main-header {
-  width: 100%; /* full lebar layar */
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #f8fcfd; /* very light background seperti gambar */
-  color: #333; /* teks warna gelap */
+  background-color: #f8fcfd;
+  color: #333;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* pastikan padding dihitung */
+  border-bottom: 1px solid #dce9ee;
+  z-index: 1001;
+  position: fixed;
+
+
+
+  box-sizing: border-box;
 }
+
 
 .header-logo {
   display: flex;
@@ -37,28 +44,12 @@
   margin-top: 2px;
 }
 
-/* Responsive tweaks */
-@media (max-width: 1024px) {
-  .main-header {
-    padding: 0.75rem 1.5rem;
-  }
+.auth-header {
+  justify-content: center;
+  background-color: #f4fbfd;
+  padding: 2rem 0;
 }
 
-@media (max-width: 768px) {
-  .main-header {
-    padding: 0.75rem 1rem;
-  }
-
-  .header-logo img {
-    height: 40px;
-    margin-right: 8px;
-  }
-
-  .header-logo-text strong {
-    font-size: 1.1rem;
-  }
-
-  .header-logo-text small {
-    font-size: 0.85rem;
-  }
+.auth-logo {
+  height: 60px;
 }

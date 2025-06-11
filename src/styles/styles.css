@@ -1,22 +1,34 @@
-/* RESET */
+/* ===== GLOBAL RESET & BASE STYLES ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --green: #34c38f;
+  --orange: #f1b44c;
+  --red: #f46a6a;
+  --blue-dark: #0b4a58;
+}
+
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f0f2f5; /* A light background for the body */
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .container {
-  padding-inline: 32px;
+  max-width: 1400px;
   margin-inline: auto;
-  max-width: 1300px;
+  padding-inline: 24px;
 }
 
-/* HEADER - Not directly used in this dashboard view, but keeping it for completeness */
+/* ===== HEADER ===== */
 header {
   background-color: #5bb1ad;
 }
@@ -45,10 +57,6 @@ header {
   height: auto;
 }
 
-/* NAVIGATION DRAWER - Keeping existing as it's part of the sidebar.css now */
-/* No changes needed here directly, as it's defined in sidebar.css */
-
-/* LOGOUT BUTTON - Keeping existing */
 #logoutButton {
   background-color: #e43500;
   color: white;
@@ -65,12 +73,38 @@ header {
   background-color: #c76f00;
 }
 
-/* FORM STYLES - Keeping existing as it's not dashboard-specific */
+/* ===== FORM PAGES ===== */
 .form-page {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.auth-header-logo {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+
+.auth-header-logo img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.auth-header-logo h1 {
+  font-size: 2.5rem;
+  color: var(--blue-dark);
+  margin-bottom: 5px;
+}
+
+.auth-header-logo p {
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .form-card {
@@ -83,10 +117,17 @@ header {
   box-sizing: border-box;
 }
 
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--blue-dark);
+}
+
 .form-card label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
+  color: #333;
 }
 
 .form-card input {
@@ -95,6 +136,7 @@ header {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .form-card button {
@@ -107,6 +149,7 @@ header {
   border-radius: 6px;
   cursor: pointer;
   width: 100%;
+  transition: background 0.3s ease;
 }
 
 .form-card button:hover {
@@ -115,12 +158,15 @@ header {
 
 .form-card p {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .form-card p a {
   color: #007bff;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .form-card p a:hover {
@@ -130,11 +176,12 @@ header {
 #registerError,
 #loginError {
   color: red;
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
+  font-size: 0.9rem;
 }
 
-/* LOADING SPINNER - Keeping existing */
+/* ===== SPINNER ===== */
 .spinner {
   margin: 20px auto;
   border: 4px solid #f3f3f3;
@@ -146,39 +193,25 @@ header {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* === APP CONTAINER & MAIN CONTENT === */
-.app-container {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px; /* Uniform padding */
-  margin-left: 250px; /* Match sidebar width */
-  max-width: calc(100% - 250px); /* Adjust max-width to consider sidebar */
-  box-sizing: border-box;
-  overflow-y: auto; /* Enable scrolling for content if it overflows */
-}
-
-/* Responsive */
+/* ===== RESPONSIVE ===== */
 @media screen and (max-width: 999px) {
   .app-container {
     flex-direction: column;
   }
 
-  .main-content {
-    margin-left: 0; /* No margin-left on mobile */
-    padding: 20px 15px; /* Adjust padding for mobile */
-    max-width: 100%; /* Full width on mobile */
+  .form-card {
+    padding: 20px;
+  }
+
+  .auth-header-logo h1 {
+    font-size: 2rem;
+  }
+
+  .auth-header-logo p {
+    font-size: 1rem;
   }
 }
