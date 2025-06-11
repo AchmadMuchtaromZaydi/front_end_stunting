@@ -1,0 +1,99 @@
+/* Tidak usah ada global fix, biarin dashboard.css yg ngatur */
+
+/* Mulai responsive override khusus device */
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+  .main-inner {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 10px !important;
+  }
+
+  .main-inner h2 {
+    font-size: 1.8rem !important;
+    text-align: center !important;
+  }
+
+  .chart-container {
+    height: 300px !important;
+  }
+
+  .summary-boxes {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .summary-box {
+    flex: 1 1 40% !important;
+    min-width: 180px !important;
+    max-width: 220px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* HP (<= 768px) */
+@media (max-width: 768px) {
+  .main-inner {
+    display: block !important;
+    padding: 10px !important;
+  }
+
+  .main-inner h2 {
+    font-size: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .summary-boxes {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .summary-box {
+    width: 90% !important;
+    font-size: 0.95rem !important;
+  }
+
+  .chart-container {
+    height: 250px !important;
+  }
+
+  .modal {
+    width: 95% !important;
+    padding: 10px !important;
+  }
+
+  .modal-header h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .anak-item-card {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* HP kecil (<= 480px) */
+@media (max-width: 480px) {
+  .main-inner h2 {
+    font-size: 1.3rem !important;
+    text-align: center !important;
+  }
+
+  .summary-box {
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .chart-container {
+    height: 200px !important;
+  }
+
+  .modal-header h2 {
+    font-size: 1rem !important;
+  }
+
+  .anak-item-card {
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
+}

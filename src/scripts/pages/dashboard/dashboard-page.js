@@ -2,9 +2,11 @@
 
 import Sidebar from "../components/sidebar.js";
 import "../../../styles/dashboard.css";
+import "../../../styles/dashboard-responsive.css";
 import getStatistik from "../../data/statistikApi.js";
 import getStatusAnak from "../../data/statusAnakApi.js";
 import Chart from "chart.js/auto";
+
 
 let chartInstance = null;
 let tahunAktif = "All";
@@ -28,7 +30,7 @@ const DashboardPage = {
     return `
       <div class="dashboard-layout">
         ${Sidebar.render()}
-        <main class="main-content">
+       <div class="dashboard-layout">
           <div class="main-inner">
             <h2>Dashboard</h2>
 
@@ -151,41 +153,45 @@ function updateDashboard(tahun, statistik, anakData) {
 
   if (chartInstance) chartInstance.destroy();
 
-  chartInstance = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labelOrder,
-      datasets: [
-        {
-          label: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
-          data: labelOrder.map((label) => dataTahun[label] || 0),
-          fill: false,
-          borderColor: "#4caf50",
-          backgroundColor: "#4caf50",
-          tension: 0.3,
-          pointRadius: 5,
-          pointBackgroundColor: ["#4caf50", "#ff9800", "#f44336"],
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: true,
-          text: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
-        },
-        legend: { display: false },
+chartInstance = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: labelOrder,
+    datasets: [
+      {
+        label: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
+        data: labelOrder.map((label) => dataTahun[label] || 0),
+        fill: false,
+        borderColor: "#4caf50",
+        backgroundColor: "#4caf50",
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: ["#4caf50", "#ff9800", "#f44336"],
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1 },
-        },
+    ],
+  },
+  options: {  // <--- disini bro
+    layout: {
+      padding: 0, // supaya canvas bener2 full
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: `Statistik Anak Berdasarkan Status Gizi (Tahun ${chartTahun})`,
+      },
+      legend: { display: false },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: { stepSize: 1 },
       },
     },
-  });
+  },
+});
+
 }
 
 function tampilkanModal(data, status, tahunAktif) {
