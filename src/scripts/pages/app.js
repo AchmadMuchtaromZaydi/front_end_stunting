@@ -1,5 +1,8 @@
-import routes from "../routes/routes";
-import { getActiveRoute } from "../routes/url-parser";
+import routes from "../routes/routes.js";
+import { getActivePathname } from "../routes/url-parser.js";
+import Sidebar from "./components/sidebar.js";
+import Header from "./components/header.js";
+import { protectRoute } from "../utils/auth-guard.js";
 
 class App {
   #content = null;
@@ -17,27 +20,19 @@ class App {
   }
 
   async renderPage() {
-    const url = getActiveRoute();
-    const token = localStorage.getItem("token");
-    const publicRoutes = ["/login", "/register"];
+    const path = getActivePathname(); // "/dashboard", "/welcome", dsb
 
-    if (!token && !publicRoutes.includes(url)) {
-      window.location.hash = "/login";
-      return false;
+    // ✅ Middleware proteksi route
+    const redirectPath = protectRoute(path);
+    if (redirectPath) {
+      window.location.hash = redirectPath;
+      return;
     }
 
-    if (url === "/dashboard") {
-      const hasProfile = await this._checkProfile();
-      if (!hasProfile) {
-        window.location.hash = "/profile-posyandu";
-        return false;
-      }
-    }
-
-    const page = routes[url];
+    const page = routes[path] || routes["/"];
     if (!page || typeof page.render !== "function") {
       this.#content.innerHTML = "<h2>404 - Halaman tidak ditemukan</h2>";
-      return true;
+      return;
     }
 
     try {
@@ -46,63 +41,58 @@ class App {
     } catch (error) {
       this.#content.innerHTML =
         "<h2>Terjadi kesalahan saat memuat halaman</h2>";
-      console.error(error);
+      console.error("Render error:", error);
     }
 
-    this._updateUIBasedOnLogin();
-    return true;
+    this._updateNavigationUI();
   }
 
-  _updateUIBasedOnLogin() {
-    const token = localStorage.getItem("token");
-    const logoutButton = document.getElementById("logoutButton");
-    const loginLink = document.getElementById("loginLink");
-    const registerLink = document.getElementById("registerLink");
-    const homeButton = document.getElementById("homeButton");
+  _updateNavigationUI() {
+    const currentRoute = window.location.hash.replace("#", "") || "/";
+    const publicRoutes = ["/login", "/register", "/welcome", "/buat-profile"];
+    const isPublic = publicRoutes.includes(currentRoute);
+    const step3Completed = localStorage.getItem("step3_completed") === "true";
 
-    if (logoutButton) {
-      logoutButton.style.display = token ? "inline-block" : "none";
-      logoutButton.addEventListener("click", () => this.handleLogout());
+    const mainHeader = document.getElementById("main-header");
+    const sidebarContainer = document.getElementById("sidebar-container");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+
+    // ===== HEADER =====
+    if (mainHeader) {
+      if (isPublic || !step3Completed) {
+        mainHeader.innerHTML = "";
+        mainHeader.style.display = "none";
+      } else {
+        mainHeader.innerHTML = Header.render();
+        Header.afterRender();
+        mainHeader.style.display = "flex";
+      }
     }
 
-    if (loginLink) {
-      loginLink.style.display = token ? "none" : "inline-block";
-    }
+    // ===== SIDEBAR =====
+    if (sidebarContainer) {
+      if (isPublic || !step3Completed) {
+        sidebarContainer.innerHTML = "";
+        if (sidebarToggle) sidebarToggle.style.display = "none";
+      } else {
+        sidebarContainer.innerHTML = Sidebar.render();
+        Sidebar.afterRender();
 
-    if (registerLink) {
-      registerLink.style.display = token ? "none" : "inline-block";
-    }
-
-    if (homeButton) {
-      homeButton.style.display = token ? "inline-block" : "none";
+        if (window.innerWidth >= 1000) {
+          sidebarToggle.style.display = "none";
+        } else {
+          sidebarToggle.style.display = "block";
+        }
+      }
     }
   }
 
   handleLogout() {
-    localStorage.removeItem("token");
+    ["token", "step1_completed", "step2_completed", "step3_completed"].forEach(
+      (k) => localStorage.removeItem(k)
+    );
     window.location.hash = "/login";
-  }
-
-  async _checkProfile() {
-    const token = localStorage.getItem("token");
-    if (!token) return false;
-
-    try {
-      const response = await fetch(
-        "https://backend-stunting.onrender.com/api/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const result = await response.json();
-      return response.ok && result.data;
-    } catch (error) {
-      console.error("❌ Error cek profile:", error);
-      return false;
-    }
+    location.reload(); // 💥 Force reset UI dan state
   }
 }
 

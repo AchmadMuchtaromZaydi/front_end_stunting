@@ -11,11 +11,16 @@ export default class LoginPresenter {
 
       const data = await login({ username, password });
 
-      // Simpan token ke localStorage (gunakan key 'token' untuk konsistensi)
-      console.log("DATA LOGIN:", data);
+      // ✅ Simpan token
       localStorage.setItem("token", data.loginResult.token);
 
-      // Redirect ke halaman utama
+      // ✅ Tandai bahwa user sudah menyelesaikan semua langkah
+      // Kalau ingin lebih dinamis, bisa request profil dulu dan cek status step
+      localStorage.setItem("step1_completed", "true");
+      localStorage.setItem("step2_completed", "true");
+      localStorage.setItem("step3_completed", "true");
+
+      // ✅ Arahkan ke dashboard
       window.location.hash = "/dashboard";
     } catch (error) {
       this.view.showError(error.message || "Login gagal. Silakan coba lagi.");

@@ -33,9 +33,18 @@ const Sidebar = {
     const burgerButton = document.getElementById("sidebar-toggle");
     const overlay = document.getElementById("overlay");
 
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // 🔥 Hapus semua data autentikasi & progres step
       localStorage.removeItem("token");
+      localStorage.removeItem("step1_completed");
+      localStorage.removeItem("step2_completed");
+      localStorage.removeItem("step3_completed");
+
+      // 🔄 Redirect ke login dan paksa refresh UI
       window.location.hash = "/login";
+      location.reload();
     });
 
     sidebar?.querySelectorAll("a").forEach((link) => {

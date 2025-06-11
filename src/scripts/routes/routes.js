@@ -8,6 +8,8 @@ import DetailAnakPage from "../pages/detail/detail-anak-page.js";
 import ReportPage from "../pages/report/report-page.js"; // ✅ Tambahkan ini
 import RiwayatPage from "../pages/riwayat-pemeriksaan-anak/RiwayatPage.js";
 import ProfilePosyanduPage from "../pages/profile-posyandu/profile-posyandu-page.js";
+import WelcomePage from "../pages/welcome/welcome-page.js";
+import CreateProfilePosyanduPage from "../pages/profile-posyandu/create-profile-posyandu-page.js";
 
 const routes = {
   "/login": LoginPage,
@@ -20,6 +22,8 @@ const routes = {
   "/detail-anak": DetailAnakPage,
   "/riwayat": RiwayatPage, // ✅ Tambahkan ini
   "/profile-posyandu": ProfilePosyanduPage,
+  "/welcome": WelcomePage,
+  "/buat-profile": CreateProfilePosyanduPage, // ✅ Tambahkan ini
 };
 
 export default routes;

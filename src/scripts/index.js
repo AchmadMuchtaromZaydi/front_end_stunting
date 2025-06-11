@@ -9,7 +9,7 @@ function renderHeader() {
   const mainHeader = document.getElementById("main-header");
   if (!mainHeader) return;
 
-  const publicRoutes = ["/login", "/register"];
+  const publicRoutes = ["/login", "/register", "/welcome"]; // ⬅️ Tambahkan /welcome
   const activeRoute = window.location.hash.replace("#", "") || "/";
   const isAuthPage = publicRoutes.includes(activeRoute);
 
@@ -25,14 +25,17 @@ function renderHeader() {
 }
 
 function updateSidebar() {
-  const publicRoutes = ["/login", "/register"];
+  const publicRoutes = ["/login", "/register", "/welcome"]; // ⬅️ Tambahkan /welcome
   const activeRoute = window.location.hash.replace("#", "") || "/";
   const sidebarContainer = document.getElementById("sidebar-container");
   const sidebarToggle = document.getElementById("sidebar-toggle");
 
   renderHeader();
 
-  if (publicRoutes.includes(activeRoute)) {
+  const isPublic = publicRoutes.includes(activeRoute);
+  const step3Completed = localStorage.getItem("step3_completed") === "true";
+
+  if (isPublic || !step3Completed) {
     sidebarContainer.innerHTML = "";
     if (sidebarToggle) sidebarToggle.style.display = "none";
     return;
