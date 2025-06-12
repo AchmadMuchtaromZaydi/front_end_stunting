@@ -62,13 +62,14 @@ const TambahAnakPage = {
 
   async afterRender() {
     Sidebar.afterRender();
+
     const form = document.getElementById("formTambahAnak");
     const token = localStorage.getItem("token");
     const fotoInput = document.getElementById("fotoFile");
     const previewImg = document.getElementById("previewFoto");
     const hiddenFotoUrl = document.getElementById("fotoUrl");
 
-    // Preview foto + upload ke Cloudinary
+    // Preview foto dan upload ke Cloudinary
     fotoInput.addEventListener("change", async () => {
       const file = fotoInput.files[0];
       if (file) {
@@ -90,7 +91,7 @@ const TambahAnakPage = {
         // Upload ke Cloudinary
         const cloudForm = new FormData();
         cloudForm.append("file", file);
-        cloudForm.append("upload_preset", "stunting_anak");
+        cloudForm.append("upload_preset", "stunting"); // ✅ gunakan preset yang benar
 
         try {
           const uploadRes = await fetch(
@@ -117,7 +118,6 @@ const TambahAnakPage = {
       e.preventDefault();
       const formData = new FormData(form);
 
-      // Payload ke /ml/predict → tanpa foto_url
       const anakPayload = [
         {
           nama: formData.get("nama"),
@@ -131,10 +131,8 @@ const TambahAnakPage = {
       try {
         const responseData = await tambahAnak(token, anakPayload);
 
-        // Simpan fotoUrl di localStorage → key: foto_anak_<nama>_<jenis_kelamin>
         const fotoUrl = formData.get("fotoUrl");
         if (fotoUrl) {
-          // fallback aman → ambil dari responseData atau dari form input
           const namaAnak = responseData?.nama || formData.get("nama");
           const jenisKelaminAnak =
             responseData?.jenis_kelamin || formData.get("jenis_kelamin");
@@ -143,11 +141,7 @@ const TambahAnakPage = {
             .trim()
             .toLowerCase()}_${jenisKelaminAnak.trim().toLowerCase()}`;
           localStorage.setItem(fotoKey, fotoUrl);
-          console.log(
-            "🟢 Foto anak disimpan di localStorage:",
-            fotoKey,
-            fotoUrl
-          );
+          console.log("🟢 Foto anak disimpan di localStorage:", fotoKey, fotoUrl);
         }
 
         alert("✅ Data anak berhasil ditambahkan!");
