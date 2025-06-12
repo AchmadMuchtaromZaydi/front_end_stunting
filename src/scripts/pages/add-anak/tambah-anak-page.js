@@ -21,7 +21,7 @@ const TambahAnakPage = {
                 <label for="fotoFile">Upload Foto Anak</label>
                 <input type="file" id="fotoFile" name="fotoFile" accept="image/png, image/jpeg" />
                 <div class="preview-container">
-                  <img id="previewFoto" class="preview-foto" />
+                  <img id="previewFoto" class="preview-foto" alt="Preview Foto" />
                 </div>
                 <input type="hidden" id="fotoUrl" name="fotoUrl" value="" />
                 <small class="help-text">Ukuran maksimal 2MB. Format JPG, PNG.</small>
@@ -64,96 +64,106 @@ const TambahAnakPage = {
     Sidebar.afterRender();
     const form = document.getElementById("formTambahAnak");
     const token = localStorage.getItem("token");
+
     const fotoInput = document.getElementById("fotoFile");
     const previewImg = document.getElementById("previewFoto");
     const hiddenFotoUrl = document.getElementById("fotoUrl");
 
-    // Preview foto + upload ke Cloudinary
     fotoInput.addEventListener("change", async () => {
       const file = fotoInput.files[0];
-      if (file) {
-        if (file.size > 2 * 1024 * 1024) {
-          alert("❌ Ukuran foto maksimal 2MB.");
-          fotoInput.value = "";
-          previewImg.src = "";
-          hiddenFotoUrl.value = "";
-          return;
-        }
 
-        // Preview
-        const reader = new FileReader();
-        reader.onload = () => {
-          previewImg.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-
-        // Upload ke Cloudinary
-        const cloudForm = new FormData();
-        cloudForm.append("file", file);
-        cloudForm.append("upload_preset", "stunting_anak");
-
-        try {
-          const uploadRes = await fetch(
-            "https://api.cloudinary.com/v1_1/dydfth7zs/image/upload",
-            {
-              method: "POST",
-              body: cloudForm,
-            }
-          );
-          const uploadData = await uploadRes.json();
-          hiddenFotoUrl.value = uploadData.secure_url;
-          console.log("🟢 Upload foto anak sukses:", uploadData.secure_url);
-        } catch (err) {
-          alert("❌ Gagal mengupload foto ke Cloudinary.");
-          hiddenFotoUrl.value = "";
-        }
-      } else {
+      if (!file) {
         previewImg.src = "";
         hiddenFotoUrl.value = "";
+        return;
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        alert("❌ Ukuran foto maksimal 2MB.");
+        fotoInput.value = "";
+        previewImg.src = "";
+        hiddenFotoUrl.value = "";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        previewImg.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+
+      const cloudForm = new FormData();
+      cloudForm.append("file", file);
+      cloudForm.append("upload_preset", "stunting_anak");
+
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dydfth7zs/image/upload",
+          {
+            method: "POST",
+            body: cloudForm,
+          }
+        );
+        const data = await res.json();
+        if (data.secure_url) {
+          hiddenFotoUrl.value = data.secure_url;
+        } else {
+          throw new Error("Upload gagal.");
+        }
+      } catch (err) {
+        alert("❌ Gagal mengupload foto ke Cloudinary.");
+        hiddenFotoUrl.value = "";
+        previewImg.src = "";
       }
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
 
-      // Payload ke /ml/predict → tanpa foto_url
+      const formData = new FormData(form);
+      const nama = formData.get("nama")?.trim();
+      const jenisKelamin = formData.get("jenis_kelamin")?.trim();
+      const umur = parseInt(formData.get("umur"));
+      const tinggi = parseFloat(formData.get("tinggi"));
+      const berat = parseFloat(formData.get("berat"));
+
       const anakPayload = [
         {
-          nama: formData.get("nama"),
-          jenis_kelamin: formData.get("jenis_kelamin"),
-          umur_bulan: parseInt(formData.get("umur")),
-          tinggi_badan: parseFloat(formData.get("tinggi")),
-          berat_badan: parseFloat(formData.get("berat")),
+          nama,
+          jenis_kelamin: jenisKelamin,
+          umur_bulan: umur,
+          tinggi_badan: tinggi,
+          berat_badan: berat,
         },
       ];
 
       try {
         const responseData = await tambahAnak(token, anakPayload);
 
-        // Simpan fotoUrl di localStorage → key: foto_anak_<nama>_<jenis_kelamin>
         const fotoUrl = formData.get("fotoUrl");
         if (fotoUrl) {
-          // fallback aman → ambil dari responseData atau dari form input
-          const namaAnak = responseData?.nama || formData.get("nama");
-          const jenisKelaminAnak =
-            responseData?.jenis_kelamin || formData.get("jenis_kelamin");
-
-          const fotoKey = `foto_anak_${namaAnak
-            .trim()
-            .toLowerCase()}_${jenisKelaminAnak.trim().toLowerCase()}`;
+          const keyNama = (
+            responseData?.nama ||
+            nama ||
+            "noname"
+          ).toLowerCase();
+          const keyJK = (
+            responseData?.jenis_kelamin ||
+            jenisKelamin ||
+            "unknown"
+          ).toLowerCase();
+          const fotoKey = `foto_anak_${keyNama}_${keyJK}`;
           localStorage.setItem(fotoKey, fotoUrl);
-          console.log(
-            "🟢 Foto anak disimpan di localStorage:",
-            fotoKey,
-            fotoUrl
-          );
         }
 
         alert("✅ Data anak berhasil ditambahkan!");
         window.location.hash = "/anak";
       } catch (err) {
-        alert(`❌ Gagal menambahkan data anak: ${err.message}`);
+        alert(
+          `❌ Gagal menambahkan data anak: ${
+            err.message || "Terjadi kesalahan"
+          }`
+        );
       }
     });
   },

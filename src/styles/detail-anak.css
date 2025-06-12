@@ -1,176 +1,228 @@
-/* detail-anak.css */
+.page-detail-anak.main-content {
+  display: flex;
+  justify-content: flex-start; /* <<< INI PERUBAHANNYA */
+  align-items: flex-start; 
+  padding: 30px;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* * Kartu Detail Utama
+ * Ini adalah container utama untuk semua informasi detail.
+ * Dibuat agar terlihat seperti komponen utama di dashboard.
+*/
 .detail-anak {
-  background: #ffffff; /* Brighter background */
-  padding: 30px; /* More padding */
-  border-radius: 12px; /* Slightly more rounded corners */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger, softer shadow */
-  max-width: 650px; /* Slightly wider */
-  margin: 20px auto 30px auto; /* Diubah dari 30px auto 30px auto menjadi 20px auto 30px auto */
+  width: 100%;
+  max-width: 900px; /* Lebar maksimum kartu agar tidak terlalu lebar di layar besar */
+  background: #ffffff;
+  padding: 32px 40px;
+  border-radius: 12px; /* Border radius disamakan dengan komponen dashboard */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); /* Shadow yang lebih soft, seperti di dashboard */
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  line-height: 1.6;
 }
 
+/* Judul Halaman */
 .detail-anak h2 {
   width: 100%;
   text-align: center;
-  margin-bottom: 30px; /* More space below heading */
-  color: #2c3e50; /* Darker, more professional color */
-  font-size: 2em; /* Larger heading */
-  font-weight: 600; /* Semi-bold */
+  margin-bottom: 24px;
+  font-size: 2rem; /* Ukuran font disamakan dengan h2 dashboard */
+  font-weight: 700;
+  color: #1a3a5a; /* Menggunakan warna gelap yang konsisten (mirip --blue-dark) */
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee; /* Garis bawah untuk memisahkan judul */
 }
 
+/* * Container untuk Foto dan Info
+ * Menggunakan flexbox untuk menata foto di sebelah kiri dan info di sebelah kanan.
+*/
 .detail-card {
   display: flex;
-  gap: 30px; /* More space between photo and info */
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Izinkan wrap di layar kecil */
+  gap: 40px;
   width: 100%;
-  justify-content: center;
-  align-items: center; /* Vertically align items */
-  border-bottom: 1px solid #eee; /* Subtle separator */
-  padding-bottom: 25px; /* Padding above the separator */
-  margin-bottom: 25px; /* Space below the separator */
+  align-items: flex-start; /* Mulai dari atas */
+  padding-bottom: 25px;
+  margin-bottom: 25px;
 }
 
+/* Foto Anak */
 .foto-container {
-  flex: 0 0 180px; /* Fixed width for photo container */
-  height: 180px; /* Fixed height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%; /* Make photo container round */
-  overflow: hidden; /* Hide overflow for circular image */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow for photo */
+  flex: 0 0 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 5px solid #fff; /* Border putih untuk efek "pop-out" */
   background-color: #e0e0e0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.foto-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .foto-anak-detail {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%; /* Ensure image itself is round */
 }
 
 .placeholder-foto-detail {
   width: 100%;
   height: 100%;
-  border: 3px dashed #a0a0a0; /* Thicker, darker dashed border */
-  border-radius: 50%; /* Round placeholder */
-  background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fafafa;
   color: #a0a0a0;
   font-size: 0.9em;
+  font-weight: 500;
   text-align: center;
+  border: 2px dashed #ccc;
+  border-radius: 50%;
 }
 
-
+/* Blok Informasi Detail (Nama, Umur, dll) */
 .info-detail {
-  flex: 2 1 350px; /* Adjusted flex basis */
+  flex: 1; /* Ambil sisa ruang yang tersedia */
+  min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Slightly more space between info lines */
-  color: #444;
-  font-size: 1.05rem; /* Slightly larger font */
+  gap: 14px; /* Sedikit lebih banyak ruang antar baris */
+  font-size: 1rem;
+}
+
+.info-detail p {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  padding: 4px 0;
 }
 
 .info-detail p strong {
-  color: #333; /* Darker bold text */
+  display: inline-block;
+  min-width: 150px; /* Memberi lebar tetap untuk label */
+  color: #333;
+  font-weight: 600;
 }
 
-/* Gaya umum untuk status label */
+.info-detail p span {
+  color: #555; /* Warna untuk nilai data */
+}
+
+/* Badge Status */
 .status {
-  display: inline-block;
-  padding: 0.5rem 1rem; /* More padding */
-  border-radius: 20px; /* More rounded "pill" shape */
-  font-size: 0.95rem; /* Slightly larger font */
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: bold;
   text-transform: capitalize;
-  width: fit-content;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for status */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid transparent;
+  margin-left: 8px;
 }
 
-/* Status: Normal */
 .status.normal {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: #e3fcec;
+  color: #0d6b33;
+  border-color: #a3e9a4;
+}
+.status.stunting, .status.berpotensi-stunting {
+  background-color: #fff4e5;
+  color: #8c5b0c;
+  border-color: #ffe6ba;
+}
+.status.severely-stunted {
+  background-color: #ffecec;
+  color: #a52828;
+  border-color: #f5c0c0;
 }
 
-/* Status: Stunting */
-.status.stunting {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* Status: Berpotensi Stunting */
-.status.berpotensi-stunting {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-/* New styles for button container */
+/* Tombol Aksi (Hapus & Kembali) */
 .detail-actions {
   display: flex;
-  justify-content: center; /* Center the buttons */
-  gap: 20px; /* Space between buttons */
+  justify-content: flex-end; /* Pindahkan tombol ke kanan */
+  gap: 15px;
   width: 100%;
-  margin-top: 20px; /* Space above buttons */
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn-hapus, .btn-back {
+  padding: 10px 22px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.btn-back {
+  background-color: #f0f2f5;
+  color: #333;
+  border-color: #ddd;
+}
+.btn-back:hover {
+  background-color: #e9ecef;
+  border-color: #ccc;
+  transform: translateY(-2px);
 }
 
 .btn-hapus {
-  background-color: #e74c3c; /* Redder tone */
+  background-color: #e74c3c;
   color: white;
-  padding: 12px 22px; /* Slightly less padding */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem; /* Slightly smaller font */
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform transition */
 }
-
 .btn-hapus:hover {
-  background-color: #c0392b; /* Darker red on hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  background-color: #c0392b;
+  box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3);
+  transform: translateY(-2px);
 }
 
-/* New style for the "Kembali" button */
-.btn-back {
-  background-color: #3498db; /* Blue color */
-  color: white;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.btn-back:hover {
-  background-color: #2980b9; /* Darker blue on hover */
-  transform: translateY(-2px); /* Slight lift effect */
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .page-detail-anak.main-content {
+    padding: 20px;
+  }
+  .detail-anak {
+    padding: 24px;
+  }
   .detail-card {
     flex-direction: column;
-    text-align: center;
+    align-items: center; /* Pusatkan semua item di layar kecil */
+    gap: 25px;
   }
-
-  .foto-container {
-    margin-bottom: 20px;
-  }
-
   .info-detail {
     align-items: center;
+    text-align: center;
   }
-
-  .detail-actions {
+  .info-detail p {
+    justify-content: center;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 4px;
+  }
+  .info-detail p strong {
+    min-width: unset;
+    margin-right: 0;
+  }
+  .detail-actions {
+    justify-content: center; /* Tombol di tengah pada mobile */
+    flex-direction: column-reverse; /* Tombol kembali di bawah */
+    width: 100%;
+  }
+  .btn-hapus, .btn-back {
+    width: 100%;
   }
 }

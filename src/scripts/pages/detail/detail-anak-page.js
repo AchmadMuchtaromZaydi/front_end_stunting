@@ -14,7 +14,7 @@ const DetailAnakPage = {
     return `
       <div class="dashboard-layout">
         ${Sidebar.render()}
-        <main class="main-content">
+        <main class="main-content page-detail-anak">
           <div id="detailContainer" class="detail-anak">Memuat data...</div>
         </main>
       </div>
@@ -31,6 +31,7 @@ const DetailAnakPage = {
     try {
       const anak = await DetailAnakPresenter.fetchDetailAnak(token, anakId);
 
+      // --- PERBAIKAN DI BAWAH INI ---
       container.innerHTML = `
         <h2>Detail Anak</h2>
         <div class="detail-card">
@@ -38,22 +39,33 @@ const DetailAnakPage = {
             ${
               anak.foto_url
                 ? `<img src="${anak.foto_url}" alt="Foto ${anak.nama}" class="foto-anak-detail" />`
-                : '<div class="placeholder-foto-detail"></div>'
+                : '<div class="placeholder-foto-detail">Foto Tidak Tersedia</div>'
             }
           </div>
           <div class="info-detail">
-            <p><strong>ID Anak:</strong> ${anak.id}</p>
-            <p><strong>Nama:</strong> ${anak.nama}</p>
-            <p><strong>Jenis Kelamin:</strong> ${anak.jenis_kelamin}</p>
-            <p><strong>Umur:</strong> ${anak.umur_bulan} bulan</p>
-            <p><strong>Tinggi Badan:</strong> ${anak.tinggi_badan} cm</p>
-            <p><strong>Berat Badan:</strong> ${anak.berat_badan} kg</p>
+            <p><strong>ID Anak:</strong> <span>${anak.id}</span></p>
+            <p><strong>Nama:</strong> <span>${anak.nama}</span></p>
+            <p><strong>Jenis Kelamin:</strong> <span>${
+              anak.jenis_kelamin
+            }</span></p>
+            <p><strong>Umur:</strong> <span>${anak.umur_bulan} bulan</span></p>
+            <p><strong>Tinggi Badan:</strong> <span>${
+              anak.tinggi_badan
+            } cm</span></p>
+            <p><strong>Berat Badan:</strong> <span>${
+              anak.berat_badan
+            } kg</span></p>
+            <p><strong>Tanggal Cek:</strong> <span>${new Date(
+              anak.created_at
+            ).toLocaleDateString("id-ID", {
+              // Format tanggal lebih ramah
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}</span></p>
             <p><strong>Status:</strong> <span class="status ${anak.label
               .toLowerCase()
               .replace(/ /g, "-")}">${anak.label}</span></p>
-            <p><strong>Tanggal:</strong> ${new Date(
-              anak.created_at
-            ).toLocaleDateString()}</p>
           </div>
         </div>
         <div class="detail-actions">
@@ -61,6 +73,7 @@ const DetailAnakPage = {
           <button id="hapusButton" class="btn-hapus">Hapus Data Anak</button>
         </div>
       `;
+      // --- AKHIR PERBAIKAN ---
 
       // Handle back button
       document.getElementById("backButton").addEventListener("click", () => {
@@ -70,11 +83,11 @@ const DetailAnakPage = {
       // Ganti tombol dengan clone agar event listener lama hilang
       const originalButton = document.getElementById("hapusButton");
       const newButton = originalButton.cloneNode(true);
-      originalButton.replaceWith(newButton);
+      originalButton.parentNode.replaceChild(newButton, originalButton);
 
       newButton.addEventListener("click", async () => {
         const konfirmasi = confirm(
-          `Apakah kamu yakin ingin menghapus data ${anak.nama}?`
+          `Apakah Anda yakin ingin menghapus data ${anak.nama}?`
         );
         if (!konfirmasi) return;
 
@@ -87,7 +100,7 @@ const DetailAnakPage = {
         }
       });
     } catch (err) {
-      container.innerHTML = `<p class="error">❌ ${err.message}</p>`;
+      container.innerHTML = `<p class="error" style="text-align: center;">❌ Gagal memuat data: ${err.message}</p>`;
     }
   },
 };
