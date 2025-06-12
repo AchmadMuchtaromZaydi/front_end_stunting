@@ -91,7 +91,7 @@ const TambahAnakPage = {
         // Upload ke Cloudinary
         const cloudForm = new FormData();
         cloudForm.append("file", file);
-        cloudForm.append("upload_preset", "stunting"); // ✅ gunakan preset yang benar
+        cloudForm.append("upload_preset", "stunting");
 
         try {
           const uploadRes = await fetch(
@@ -125,6 +125,7 @@ const TambahAnakPage = {
           umur_bulan: parseInt(formData.get("umur")),
           tinggi_badan: parseFloat(formData.get("tinggi")),
           berat_badan: parseFloat(formData.get("berat")),
+          foto_url: formData.get("fotoUrl") || null, // ✅ Masukkan foto_url ke payload
         },
       ];
 
