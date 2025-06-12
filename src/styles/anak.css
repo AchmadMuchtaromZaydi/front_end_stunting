@@ -1,16 +1,17 @@
-/* ==== TAMBAH ANAK PAGE ==== */
-
-
+/* Container form */
 .form-container {
   background: #ffffff;
-  padding: 32px 32px;
+  padding: 32px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   max-width: 720px;
   width: 100%;
-  margin: 110px auto 40px auto;
+  min-height: calc(100vh - 64px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-
 
 .form-container h2 {
   text-align: center;
@@ -46,6 +47,7 @@
   background-color: #fafafa;
 }
 
+/* Upload Foto */
 .file-upload {
   position: relative;
   overflow: hidden;
@@ -78,21 +80,34 @@
 }
 
 .preview-container {
-  margin-top: 10px;
-  border: 1px dashed #ccc;
-  padding: 12px;
-  border-radius: 8px;
+  margin-top: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden; /* Penting agar gambar tidak keluar dari lingkaran */
+  background-color: #f0f0f0;
+  border: 2px dashed #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .preview-foto {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* Tetap bulat */
+  transition: all 0.3s ease;
 }
 
+.preview-foto:hover {
+  opacity: 0.95;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Tombol */
 .button-container {
   display: flex;
   justify-content: center;
@@ -128,40 +143,47 @@
 
 .btn-upload-foto:hover {
   background-color: #2980b9;
-  transform: scale(1.05); /* sedikit membesar saat hover */
+  transform: scale(1.05);
 }
 
 .btn-upload-foto:active {
-  transform: scale(0.98); /* efek ditekan */
+  transform: scale(0.98);
 }
 
-
-/* Responsive */
+/* Responsive Mobile */
 @media screen and (max-width: 600px) {
-  
-.form-container {
-  background: #ffffff;
-  padding: 32px 32px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-  max-width: 720px;
-  width: 100%;
-  margin: 110px auto 40px auto;
-}
+  .main-content {
+    align-items: flex-start;
+    padding: 100px 16px 40px 16px;
+  }
 
-
-  .form-group label {
-    font-size: 1rem;
+  .form-container {
+    padding: 24px 16px;
+    margin: 0 auto;
   }
 
   .btn-tambah-data {
     width: 100%;
   }
+
+  .form-group label {
+    font-size: 1rem;
+  }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 1024px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .main-content-anak,
+  .form-page,
   .form-container {
-    padding: 24px 16px;
-    margin: 100px 16px 30px 16px;
+    max-width: 70%;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }
