@@ -142,39 +142,6 @@ html, body {
   padding: 0;
 }
 
-/* ===== STEP INDICATOR ===== */
-.step-indicator {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-}
-
-.step {
-  text-align: center;
-  font-weight: bold;
-}
-
-.step .step-number {
-  font-size: 1.2rem;
-  background-color: #e0e0e0;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  margin: 0 auto 0.5rem;
-}
-
-.step.active .step-number {
-  background-color: #007bff;
-  color: white;
-}
-
-.step.done .step-number {
-  background-color: #28a745;
-  color: white;
-}
-
 /* ===== SPINNER ===== */
 .spinner {
   margin: 20px auto;
@@ -520,75 +487,139 @@ html, body {
   height: 24px; /* Adjust size as needed */
 }
 
-/* ===== Final Responsive Dashboard Layout ===== */
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
 
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
 
+.step-number {
+  width: 36px;
+  height: 36px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  transition: background-color 0.3s;
+}
 
+.step.active .step-number {
+  background-color: #007bff;
+}
 
-.main-content {
-  margin-left: 250px;
-  padding: 30px 0 !important;
-  background: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  flex-grow: 1;
+.step.done .step-number {
+  background-color: #28a745;
+}
+
+.step-label {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-arrow {
+  font-size: 1.5rem;
+  color: #ccc;
+  padding: 0 0.5rem;
+  transition: color 0.3s;
+}
+
+.step.done + .step-arrow {
+  color: #28a745;
+}
+
+.step.active + .step-arrow {
+  color: #007bff;
+}
+
+/* === DASHBOARD LAYOUT FULL WIDTH === */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 10px;
+  padding-bottom: 0;
+  padding-left: 30px; /* ini yang bener */
+  padding-right: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  width: 100vw; /* biar full */
+  
 }
 
 
-
-/* ===== ini saya edit faizzz ===== */
+/* === MAIN INNER GRID === */
 .main-inner {
-  width: 100%;
-  max-width: none;
-  margin: 0;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(500px, 2fr) minmax(300px, 1fr);
   gap: 20px;
-  padding: 0;
+  width: 80%;
+  box-sizing: border-box;
+margin-left: 0;
+
 }
 
 
-
+/* === H2 title === */
 .main-inner h2 {
+  grid-column: span 2; /* supaya header di atas full */
   margin-bottom: 20px;
   font-size: 2rem;
   color: var(--blue-dark);
 }
 
+/* === Tahun Select === */
 .tahun-select-container {
-  margin-bottom: 25px;
-  font-size: 1rem;
+  grid-column: span 2; /* supaya di atas full */
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
+/* === Chart === */
 .chart-container {
   background: #fff;
-  padding: 0;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 40px;
   min-height: 300px;
   width: 100%;
-  position: relative;
+  max-width: 100%; /* penting supaya dia ga overflow */
+  box-sizing: border-box;
 }
 
-.chart-container::after {
-  content: "* Hover untuk melihat jumlah";
-  position: absolute;
-  bottom: 10px;
-  right: 16px;
-  font-size: 0.75rem;
-  color: #999;
-  font-style: italic;
-}
 
+/* === Summary Box === */
 .summary-boxes {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
+/* === Summary Box Item === */
 .summary-box {
   padding: 16px 20px;
   font-weight: bold;
@@ -627,61 +658,40 @@ html, body {
   font-size: 1.3rem;
   color: var(--blue-dark);
 }
-
-/* Tooltip */
-.summary-box::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -28px;
-  left: 0;
-  background: #333;
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(5px);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  z-index: 10;
-}
-
-.summary-box:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* === Modal Styling === */
+/* === MODAL FIX FINAL === */
 .anak-modal {
-  display: none;
+  display: none; /* default: ga kelihatan */
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   position: fixed;
   z-index: 9999;
-  top: 90px;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: calc(100vh - 90px);
-  overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 30px 16px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* overlay hitam transparan */
+  backdrop-filter: blur(2px);
+  padding: 20px;
   box-sizing: border-box;
-  animation: fadeIn 0.3s ease;
+  transition: opacity 0.3s ease;
+  opacity: 0;
 }
 
 .anak-modal.open {
   display: flex;
+  opacity: 1;
 }
 
-.anak-modal .modal {
+.modal {
   background-color: #fff;
   padding: 24px;
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  max-width: 700px;
+  max-width: 600px;
   width: 100%;
-  animation: slideUp 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-header {
@@ -712,6 +722,7 @@ html, body {
   color: #e53935;
 }
 
+/* === Daftar Anak Card === */
 .anak-item-card {
   border: 1px solid #eee;
   border-radius: 8px;
@@ -732,19 +743,6 @@ html, body {
   color: var(--blue-dark);
   margin-bottom: 4px;
 }
-.dashboard-layout {
-  display: flex;
-  min-height: 100vh;
-  padding-top: 90px;
-  width: 100%;
-}
-
-body.dashboard-page .container {
-  max-width: none !important;
-  margin-inline: 0 !important;
-  padding-inline: 0 !important;
-}
-
 
 .anak-item-body {
   font-size: 0.95rem;
@@ -757,78 +755,136 @@ body.dashboard-page .container {
   margin-top: 5px;
 }
 
-@media screen and (max-width: 999px) {
-  
-
-
-
-  .main-inner {
-    display: block;
-    margin-inline: 0;
-  }
-
-  .summary-boxes {
-    margin-top: 30px;
-  }
+/* Optional animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@media screen and (max-width: 600px) {
-  .summary-box {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
 
-  .summary-box span {
-    font-size: 1.1rem;
-  }
 
-  .chart-container {
-    padding: 18px;
-    min-height: 280px;
+/* Tidak usah ada global fix, biarin dashboard.css yg ngatur */
+
+/* Mulai responsive override khusus device */
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+  .main-inner {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 10px !important;
   }
 
   .main-inner h2 {
-    font-size: 1.6rem;
+    font-size: 1.8rem !important;
+    text-align: center !important;
+  }
+
+  .chart-container {
+    height: 300px !important;
+  }
+
+  .summary-boxes {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .summary-box {
+    flex: 1 1 40% !important;
+    min-width: 180px !important;
+    max-width: 220px !important;
+    font-size: 1rem !important;
   }
 }
 
-
-@media screen and (min-width: 1000px) {
-  .main-content {
-    padding-right: 0px;
+/* HP (<= 768px) */
+@media (max-width: 768px) {
+  .main-inner {
+    display: block !important;
+    padding: 10px !important;
   }
 
-  .anak-modal .modal {
-    margin-left: 250px;
+  .main-inner h2 {
+    font-size: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .summary-boxes {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .summary-box {
+    width: 90% !important;
+    font-size: 0.95rem !important;
+  }
+
+  .chart-container {
+    height: 250px !important;
+  }
+
+  .modal {
+    width: 95% !important;
+    padding: 10px !important;
+  }
+
+  .modal-header h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .anak-item-card {
+    font-size: 0.95rem !important;
   }
 }
 
+/* HP kecil (<= 480px) */
+@media (max-width: 480px) {
+  .main-inner h2 {
+    font-size: 1.3rem !important;
+    text-align: center !important;
+  }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+  .summary-box {
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
 
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  .chart-container {
+    height: 200px !important;
+  }
+
+  .modal-header h2 {
+    font-size: 1rem !important;
+  }
+
+  .anak-item-card {
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
 }
 
 /* ===== ANAK PAGE ===== */
 
 /* Tidak pakai .dashboard-layout */
 
+
 /* MAIN CONTENT */
 .main-content {
   flex-grow: 1;
   padding: 40px 30px;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   background: #f9f9f9;
-    margin: 80px auto 30px auto; /* Sudah konsisten */
+  margin: 80px auto 30px auto;
+}
 
+/* Buat agar bagian tengah tidak terlalu sempit */
+@media screen and (min-width: 1024px) {
+  .main-content {
+    max-width: 1800px;
+    padding-left: 200px; /* atau 1300px jika ingin lebih lebar */
+  }
 }
 
 h2 {
@@ -987,7 +1043,7 @@ h2 {
   margin-top: 2rem;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE UNTUK MOBILE */
 @media screen and (max-width: 600px) {
   .info-nama-status {
     flex-direction: column;
@@ -1002,7 +1058,22 @@ h2 {
     font-size: 0.8rem;
     margin-left: 0;
   }
+
+  .search-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .btn-tambah {
+    width: 100%;
+    text-align: center;
+  }
 }
+
 /* ==== TAMBAH ANAK PAGE ==== */
 
 
@@ -1403,11 +1474,11 @@ body {
 /* Card Utama Profile Posyandu */
 .profile-posyandu {
   background-color: #f4fbfd;
-  padding: 40px 30px;
+  padding: 10px 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 800px;
-  margin: 80px auto 30px auto; /* Memusatkan kartu secara horizontal dan memberi jarak atas */
+  margin: 10px auto 30px auto; /* Memusatkan kartu secara horizontal dan memberi jarak atas */
 
   /* Flexbox untuk memusatkan semua konten di dalam kartu */
   display: flex;

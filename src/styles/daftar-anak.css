@@ -2,16 +2,24 @@
 
 /* Tidak pakai .dashboard-layout */
 
+
 /* MAIN CONTENT */
 .main-content {
   flex-grow: 1;
   padding: 40px 30px;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   background: #f9f9f9;
-    margin: 80px auto 30px auto; /* Sudah konsisten */
+  margin: 80px auto 30px auto;
+}
 
+/* Buat agar bagian tengah tidak terlalu sempit */
+@media screen and (min-width: 1024px) {
+  .main-content {
+    max-width: 1800px;
+    padding-left: 200px; /* atau 1300px jika ingin lebih lebar */
+  }
 }
 
 h2 {
@@ -170,7 +178,7 @@ h2 {
   margin-top: 2rem;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE UNTUK MOBILE */
 @media screen and (max-width: 600px) {
   .info-nama-status {
     flex-direction: column;
@@ -184,5 +192,19 @@ h2 {
     padding: 0.3rem 0.6rem;
     font-size: 0.8rem;
     margin-left: 0;
+  }
+
+  .search-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .btn-tambah {
+    width: 100%;
+    text-align: center;
   }
 }
