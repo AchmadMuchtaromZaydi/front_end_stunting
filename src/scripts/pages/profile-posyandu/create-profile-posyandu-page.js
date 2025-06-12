@@ -18,6 +18,7 @@ const CreateProfilePage = {
 
           <form id="profileForm" class="form-card">
             <h3 style="text-align: center; margin-bottom: 20px;">Buat Profil Posyandu</h3>
+
             <label for="profilePicture">Upload Foto Posyandu</label>
             <div class="profile-picture-upload">
               <img id="profilePreview" src="https://res.cloudinary.com/dpvj8a3g2/image/upload/v1717865261/default-profile.png" alt="Foto Posyandu" class="preview-foto"/>
@@ -94,7 +95,7 @@ const CreateProfilePage = {
         loadingSpinner.style.display = "block";
 
         try {
-          const imageUrl = await uploadPhotoToCloudinary(file);
+          const imageUrl = await this._uploadPhotoToCloudinary(file);
           currentProfileImageUrl = imageUrl;
           uploadStatus.textContent = "Foto berhasil diunggah.";
           uploadStatus.style.color = "#28a745";
@@ -133,7 +134,7 @@ const CreateProfilePage = {
         const profileData = {
           nama_posyandu: posyanduName,
           alamat: `${alamat}, ${desa}`,
-          profile_picture: currentProfileImageUrl,
+          foto_url: currentProfileImageUrl,
           deskripsi: deskripsi,
         };
 
@@ -148,33 +149,33 @@ const CreateProfilePage = {
         loadingSpinner.style.display = "none";
       }
     });
+  },
 
-    async function uploadPhotoToCloudinary(file) {
-      const CLOUDINARY_CLOUD_NAME = "dydfth7zs";
-      const CLOUDINARY_UPLOAD_PRESET = "stunting_anak";
+  async _uploadPhotoToCloudinary(file) {
+    const CLOUDINARY_CLOUD_NAME = "dydfth7zs";
+    const CLOUDINARY_UPLOAD_PRESET = "stunting_anak";
 
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-      const uploadRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const uploadData = await uploadRes.json();
-
-      if (!uploadRes.ok) {
-        throw new Error(
-          uploadData.error?.message || "Upload gagal di sisi Cloudinary."
-        );
+    const uploadRes = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
       }
+    );
 
-      return uploadData.secure_url;
+    const uploadData = await uploadRes.json();
+
+    if (!uploadRes.ok) {
+      throw new Error(
+        uploadData.error?.message || "Upload gagal di sisi Cloudinary."
+      );
     }
+
+    return uploadData.secure_url;
   },
 };
 
